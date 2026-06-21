@@ -23,30 +23,51 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom luxury styling
+# Custom luxury styling — high contrast, easy to read
 st.markdown(
     """
     <style>
     :root {
-        --hotel-navy: #0A192F;
-        --hotel-gold: #C5A059;
-        --hotel-cream: #FAF8F5;
-        --hotel-charcoal: #1A1A1A;
+        --hotel-navy: #1E3A5F;
+        --hotel-gold: #D4A843;
+        --hotel-cream: #FDFCFA;
+        --hotel-charcoal: #222222;
+        --hotel-light-blue: #E8F0FE;
     }
-    .main {
+    .main .block-container {
         background-color: var(--hotel-cream);
     }
     h1, h2, h3 {
         color: var(--hotel-navy) !important;
+        font-weight: 700 !important;
     }
     .stButton>button {
-        background-color: var(--hotel-navy);
-        color: white;
-        border-radius: 4px;
+        background-color: var(--hotel-gold) !important;
+        color: #1A1A1A !important;
+        font-weight: 600 !important;
+        border: 2px solid #B88A2E !important;
+        border-radius: 6px !important;
     }
     .stButton>button:hover {
-        background-color: var(--hotel-gold);
-        color: var(--hotel-navy);
+        background-color: #E6BC5C !important;
+        color: #1A1A1A !important;
+        border-color: #D4A843 !important;
+    }
+    .stDownloadButton>button {
+        background-color: var(--hotel-light-blue) !important;
+        color: var(--hotel-navy) !important;
+        font-weight: 600 !important;
+        border: 1px solid var(--hotel-navy) !important;
+        border-radius: 6px !important;
+    }
+    .stDownloadButton>button:hover {
+        background-color: #D6E4FA !important;
+    }
+    .stMetric {
+        background-color: white;
+        border: 1px solid #E0E0E0;
+        border-radius: 6px;
+        padding: 8px;
     }
     </style>
     """,

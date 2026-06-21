@@ -10,10 +10,15 @@ def render_product_card(product: Product, rank: int = 1) -> None:
     with st.container(border=True):
         col1, col2 = st.columns([3, 1])
         with col1:
-            st.subheader(f"#{rank} {product.brand} {product.name}")
+            if product.source_url:
+                st.subheader(f"#{rank} [{product.brand} {product.name}]({product.source_url})")
+            else:
+                st.subheader(f"#{rank} {product.brand} {product.name}")
             st.caption(f"{product.subcategory.title()} · {product.display_price}")
         with col2:
             st.metric("Overall Score", f"{product.overall_score:.0f}", score_to_grade(product.overall_score))
+            if product.source_url:
+                st.link_button("Open official page ↗", product.source_url, use_container_width=True)
 
         score_cols = st.columns(6)
         score_cols[0].metric("Quality", f"{product.quality_score:.0f}")
@@ -54,6 +59,3 @@ def render_product_card(product: Product, rank: int = 1) -> None:
 
         if product.compliance_flags:
             st.warning("Compliance flags: " + "; ".join(product.compliance_flags))
-
-        if product.source_url:
-            st.markdown(f"[Source ↗]({product.source_url})")

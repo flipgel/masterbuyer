@@ -62,10 +62,22 @@ def render_dashboard(result: ResearchResult) -> None:
             "Exclusivity": f"{p.exclusivity_score:.0f}",
             "TCO": f"{p.tco_score:.0f}",
             "Compliance": f"{p.compliance_score:.0f}",
+            "Official page": p.source_url,
         }
         for i, p in enumerate(filtered)
     ])
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Official page": st.column_config.LinkColumn(
+                "Official page",
+                help="Click to open the manufacturer or product page",
+                display_text="Open ↗",
+            ),
+        },
+    )
 
     # Top product cards
     st.subheader("Top Candidates")

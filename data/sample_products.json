@@ -34,7 +34,8 @@
       "cons": [
         "High upfront cost",
         "No longer rare in luxury hotels"
-      ]
+      ],
+      "source_url": "https://www.dyson.co.uk/hair-dryers/supersonic/overview"
     },
     {
       "id": "appl-hairdryer-002",
@@ -68,7 +69,8 @@
       "cons": [
         "Slightly heavier",
         "Less distinctive than Dyson"
-      ]
+      ],
+      "source_url": "https://www.ghdhair.com/ghd-helios"
     },
     {
       "id": "appl-hairdryer-003",
@@ -100,7 +102,8 @@
       ],
       "cons": [
         "Less consumer brand prestige"
-      ]
+      ],
+      "source_url": "https://www.valera.com/"
     },
     {
       "id": "appl-minibar-001",
@@ -135,7 +138,8 @@
       ],
       "cons": [
         "Common brand; low rarity"
-      ]
+      ],
+      "source_url": "https://www.dometic.com/en-us/products/hotel-minibars"
     },
     {
       "id": "appl-minibar-002",
@@ -168,7 +172,8 @@
       ],
       "cons": [
         "Less global service network than Dometic"
-      ]
+      ],
+      "source_url": "https://www.indelb.com/en/products/hotel-minibars"
     },
     {
       "id": "appl-minibar-003",
@@ -201,7 +206,8 @@
       "cons": [
         "Higher price",
         "Longer lead time"
-      ]
+      ],
+      "source_url": "https://www.minibarsystems.com/"
     },
     {
       "id": "appl-safe-001",
@@ -233,7 +239,8 @@
       ],
       "cons": [
         "Not fire-rated"
-      ]
+      ],
+      "source_url": "https://www.bordogna.eu/en/products/hotel-safes"
     },
     {
       "id": "appl-safe-002",
@@ -264,7 +271,8 @@
       ],
       "cons": [
         "Smaller capacity"
-      ]
+      ],
+      "source_url": "https://www.technomax.it/"
     },
     {
       "id": "appl-kettle-001",
@@ -296,7 +304,8 @@
       ],
       "cons": [
         "Painted finish can chip in heavy use"
-      ]
+      ],
+      "source_url": "https://www.smeg.com/products/kettles"
     },
     {
       "id": "appl-kettle-002",
@@ -328,7 +337,8 @@
       ],
       "cons": [
         "Heavier than plastic kettles"
-      ]
+      ],
+      "source_url": "https://www.dualit.com/"
     },
     {
       "id": "appl-iron-001",
@@ -360,7 +370,8 @@
       "cons": [
         "High price and footprint",
         "Overkill for standard rooms"
-      ]
+      ],
+      "source_url": "https://www.laurastar.com/"
     },
     {
       "id": "appl-iron-002",
@@ -391,7 +402,8 @@
       ],
       "cons": [
         "Heavier than travel irons"
-      ]
+      ],
+      "source_url": "https://www.rowenta.com/"
     },
     {
       "id": "av-speaker-001",
@@ -425,7 +437,8 @@
       "cons": [
         "Very expensive",
         "App dependency"
-      ]
+      ],
+      "source_url": "https://www.bang-olufsen.com/"
     },
     {
       "id": "av-speaker-002",
@@ -459,7 +472,8 @@
       "cons": [
         "Becoming common",
         "Requires network"
-      ]
+      ],
+      "source_url": "https://www.sonos.com/en-us/shop/era-100"
     },
     {
       "id": "av-speaker-003",
@@ -492,7 +506,8 @@
       "cons": [
         "Requires separate amplifier/streamer",
         "Industrial look not for all"
-      ]
+      ],
+      "source_url": "https://www.genelec.com/8010a"
     },
     {
       "id": "av-speaker-004",
@@ -522,7 +537,8 @@
       ],
       "cons": [
         "Needs external amp/subwoofer"
-      ]
+      ],
+      "source_url": "https://www.bowerswilkins.com/"
     },
     {
       "id": "av-tv-001",
@@ -557,7 +573,8 @@
       ],
       "cons": [
         "Common; low exclusivity"
-      ]
+      ],
+      "source_url": "https://displaysolutions.samsung.com/digital-signage/tv/hospitality-tv"
     },
     {
       "id": "av-tv-002",
@@ -590,7 +607,8 @@
       ],
       "cons": [
         "Common brand"
-      ]
+      ],
+      "source_url": "https://www.lg.com/uk/business/hotel-tv"
     },
     {
       "id": "av-tv-003",
@@ -622,7 +640,8 @@
       ],
       "cons": [
         "Higher energy use"
-      ]
+      ],
+      "source_url": "https://www.philips.com/healthcare-matters/solutions/mediasuite"
     },
     {
       "id": "bath-dispenser-001",
@@ -654,7 +673,8 @@
       ],
       "cons": [
         "Dispenser not included; must source separately"
-      ]
+      ],
+      "source_url": "https://www.aesop.com/"
     },
     {
       "id": "bath-dispenser-002",
@@ -687,7 +707,8 @@
       "cons": [
         "Premium pricing",
         "Longer lead times"
-      ]
+      ],
+      "source_url": "https://www.lelabofragrances.com/"
     },
     {
       "id": "bath-towel-001",
@@ -720,7 +741,8 @@
       "cons": [
         "Expensive",
         "Long replacement cycle cost"
-      ]
+      ],
+      "source_url": "https://www.frette.com/bath-towels"
     },
     {
       "id": "bath-towel-002",
@@ -750,7 +772,8 @@
       ],
       "cons": [
         "Limited EU distribution"
-      ]
+      ],
+      "source_url": "https://www.sferra.com/"
     },
     {
       "id": "bath-toiletries-001",
@@ -780,7 +803,8 @@
       ],
       "cons": [
         "Very high cost per unit"
-      ]
+      ],
+      "source_url": "https://www.diptyqueparis.com/"
     },
     {
       "id": "bath-toiletries-002",
@@ -813,7 +837,8 @@
       ],
       "cons": [
         "Becoming more common"
-      ]
+      ],
+      "source_url": "https://www.grownalchemist.com/"
     },
     {
       "id": "boh-cooking-001",
@@ -846,7 +871,8 @@
       "cons": [
         "High capital cost",
         "Requires water treatment"
-      ]
+      ],
+      "source_url": "https://www.rational-online.com/products/icombi-pro"
     },
     {
       "id": "boh-dishwashing-001",
@@ -880,7 +906,8 @@
       "cons": [
         "Premium price",
         "Needs trained operator"
-      ]
+      ],
+      "source_url": "https://www.winterhalter.com/undercounter-dishwashers"
     },
     {
       "id": "boh-laundry-001",
@@ -913,7 +940,8 @@
       "cons": [
         "High upfront cost",
         "Smaller capacity than industrial machines"
-      ]
+      ],
+      "source_url": "https://www.miele.com/c/professional.htm"
     },
     {
       "id": "boh-small-001",
@@ -944,7 +972,8 @@
       ],
       "cons": [
         "Needs filtered water"
-      ]
+      ],
+      "source_url": "https://www.hoshizaki-europe.com/"
     },
     {
       "id": "gen-faucet-001",
@@ -974,7 +1003,8 @@
       ],
       "cons": [
         "Premium price for fittings"
-      ]
+      ],
+      "source_url": "https://www.axor-design.com/"
     },
     {
       "id": "gen-faucet-002",
@@ -1005,7 +1035,8 @@
       "cons": [
         "Very expensive",
         "Long lead times"
-      ]
+      ],
+      "source_url": "https://www.dornbracht.com/en/products/tara"
     },
     {
       "id": "gen-shower-001",
@@ -1035,7 +1066,8 @@
       ],
       "cons": [
         "Requires good water pressure"
-      ]
+      ],
+      "source_url": "https://www.hansgrohe.com/en/30709.htm"
     },
     {
       "id": "gen-wifi-001",
@@ -1066,7 +1098,8 @@
       ],
       "cons": [
         "Requires annual license"
-      ]
+      ],
+      "source_url": "https://www.meraki.cisco.com/"
     },
     {
       "id": "gen-projector-001",
@@ -1097,7 +1130,8 @@
       ],
       "cons": [
         "Requires professional installation"
-      ]
+      ],
+      "source_url": "https://www.barco.com/"
     },
     {
       "id": "gen-furniture-001",
@@ -1128,7 +1162,8 @@
       "cons": [
         "Very long lead time",
         "High price"
-      ]
+      ],
+      "source_url": "https://www.poltronafrau.com/"
     },
     {
       "id": "appl-kettle-003",
@@ -1161,7 +1196,8 @@
       "cons": [
         "Less premium feel",
         "Plastic body"
-      ]
+      ],
+      "source_url": null
     },
     {
       "id": "appl-iron-003",
@@ -1191,7 +1227,8 @@
       ],
       "cons": [
         "Standard design, no luxury signal"
-      ]
+      ],
+      "source_url": null
     },
     {
       "id": "bath-dispenser-003",
@@ -1221,7 +1258,8 @@
       ],
       "cons": [
         "Dispenser hardware not included"
-      ]
+      ],
+      "source_url": "https://www.malinandgoetz.com/"
     },
     {
       "id": "bath-towel-003",
@@ -1251,7 +1289,8 @@
       ],
       "cons": [
         "Less prestige than Frette or Sferra"
-      ]
+      ],
+      "source_url": "https://www.christy.co.uk/"
     },
     {
       "id": "bath-toiletries-003",
@@ -1283,7 +1322,8 @@
       ],
       "cons": [
         "High unit cost"
-      ]
+      ],
+      "source_url": null
     },
     {
       "id": "boh-cooking-002",
@@ -1315,7 +1355,8 @@
       "cons": [
         "Long lead time",
         "Requires kitchen design coordination"
-      ]
+      ],
+      "source_url": "https://www.electroluxprofessional.com/"
     },
     {
       "id": "boh-dishwashing-002",
@@ -1347,7 +1388,8 @@
       ],
       "cons": [
         "Slightly lower capacity than Winterhalter"
-      ]
+      ],
+      "source_url": "https://www.meiko.de/"
     },
     {
       "id": "boh-laundry-002",
@@ -1378,7 +1420,8 @@
       ],
       "cons": [
         "Lower capacity than Miele"
-      ]
+      ],
+      "source_url": "https://www.electroluxprofessional.com/"
     },
     {
       "id": "gen-shower-002",
@@ -1409,7 +1452,8 @@
       "cons": [
         "Very expensive",
         "Long lead times"
-      ]
+      ],
+      "source_url": "https://vola.com/"
     },
     {
       "id": "gen-furniture-002",
@@ -1440,7 +1484,8 @@
       "cons": [
         "Long lead time",
         "Premium price"
-      ]
+      ],
+      "source_url": "https://www.bebitalia.com/"
     }
   ]
 }
