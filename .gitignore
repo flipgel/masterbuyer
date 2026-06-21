@@ -7,3 +7,4 @@ cache.db
 .pytest_cache/
 ui_smoke.png
 ui_research.png
+ui_*.png
