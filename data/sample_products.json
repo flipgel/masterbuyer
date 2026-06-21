@@ -1,0 +1,1446 @@
+{
+  "products": [
+    {
+      "id": "appl-hairdryer-001",
+      "name": "Dyson Supersonic Hair Dryer",
+      "brand": "Dyson",
+      "category": "appliances",
+      "subcategory": "hairdryer",
+      "specs": {
+        "power_w": 1600,
+        "noise_db": 77,
+        "weight_g": 680,
+        "ionic": true,
+        "cool_shot": true,
+        "cord_length_m": 2.7,
+        "motor_type": "digital V9"
+      },
+      "estimated_price_eur": 389,
+      "availability_weeks": 2,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Four Seasons",
+        "Park Hyatt"
+      ],
+      "pros": [
+        "Very fast drying",
+        "Low noise",
+        "Luxury brand recognition",
+        "Magnetic attachments"
+      ],
+      "cons": [
+        "High upfront cost",
+        "No longer rare in luxury hotels"
+      ]
+    },
+    {
+      "id": "appl-hairdryer-002",
+      "name": "ghd Helios Hair Dryer",
+      "brand": "ghd",
+      "category": "appliances",
+      "subcategory": "hairdryer",
+      "specs": {
+        "power_w": 2200,
+        "noise_db": 80,
+        "weight_g": 780,
+        "ionic": true,
+        "cool_shot": true,
+        "cord_length_m": 3.0
+      },
+      "estimated_price_eur": 169,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Ritz-Carlton",
+        "Fairmont"
+      ],
+      "pros": [
+        "Strong airflow",
+        "Established salon brand",
+        "Good price/performance"
+      ],
+      "cons": [
+        "Slightly heavier",
+        "Less distinctive than Dyson"
+      ]
+    },
+    {
+      "id": "appl-hairdryer-003",
+      "name": "Valera Silent Jet 8600",
+      "brand": "Valera",
+      "category": "appliances",
+      "subcategory": "hairdryer",
+      "specs": {
+        "power_w": 2400,
+        "noise_db": 68,
+        "weight_g": 560,
+        "ionic": true,
+        "cool_shot": true,
+        "cord_length_m": 3.0
+      },
+      "estimated_price_eur": 129,
+      "availability_weeks": 2,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Many European 4-star hotels"
+      ],
+      "pros": [
+        "Very quiet",
+        "Lightweight",
+        "Built for hotel use"
+      ],
+      "cons": [
+        "Less consumer brand prestige"
+      ]
+    },
+    {
+      "id": "appl-minibar-001",
+      "name": "Dometic RH 418 LDG Minibar",
+      "brand": "Dometic",
+      "category": "appliances",
+      "subcategory": "minibar",
+      "specs": {
+        "capacity_l": 40,
+        "noise_db": 0,
+        "energy_class": "A++",
+        "door_hinge": "reversible",
+        "lockable": true,
+        "climate_class": "SN-ST"
+      },
+      "estimated_price_eur": 349,
+      "availability_weeks": 4,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "Marriott",
+        "Hilton",
+        "IHG"
+      ],
+      "pros": [
+        "Silent absorption cooling",
+        "Reversible door",
+        "Hotel-standard lock"
+      ],
+      "cons": [
+        "Common brand; low rarity"
+      ]
+    },
+    {
+      "id": "appl-minibar-002",
+      "name": "Indel B K40 Ecosmart G Minibar",
+      "brand": "Indel B",
+      "category": "appliances",
+      "subcategory": "minibar",
+      "specs": {
+        "capacity_l": 40,
+        "noise_db": 0,
+        "energy_class": "A++",
+        "door_hinge": "right",
+        "lockable": true,
+        "climate_class": "SN-ST"
+      },
+      "estimated_price_eur": 279,
+      "availability_weeks": 3,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "European boutique hotels"
+      ],
+      "pros": [
+        "Italian build quality",
+        "Excellent energy efficiency",
+        "Competitive price"
+      ],
+      "cons": [
+        "Less global service network than Dometic"
+      ]
+    },
+    {
+      "id": "appl-minibar-003",
+      "name": "Minibar Systems ECO 40",
+      "brand": "Minibar Systems",
+      "category": "appliances",
+      "subcategory": "minibar",
+      "specs": {
+        "capacity_l": 40,
+        "noise_db": 0,
+        "energy_class": "A+++",
+        "door_hinge": "reversible",
+        "lockable": true,
+        "climate_class": "SN-ST"
+      },
+      "estimated_price_eur": 429,
+      "availability_weeks": 5,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "Design hotels"
+      ],
+      "pros": [
+        "Top-tier energy efficiency",
+        "Specialist brand"
+      ],
+      "cons": [
+        "Higher price",
+        "Longer lead time"
+      ]
+    },
+    {
+      "id": "appl-safe-001",
+      "name": "Bordogna Bora Plus 1E Hotel Safe",
+      "brand": "Bordogna",
+      "category": "appliances",
+      "subcategory": "safe",
+      "specs": {
+        "volume_l": 20,
+        "lock_type": "electronic",
+        "bolt_count": 2,
+        "fire_rating": "none",
+        "floor_mount": true
+      },
+      "estimated_price_eur": 245,
+      "availability_weeks": 2,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "VdS"
+      ],
+      "hotel_usage": [
+        "Luxury Italian hotels"
+      ],
+      "pros": [
+        "Italian design",
+        "Reliable electronic lock",
+        "Good size for laptop"
+      ],
+      "cons": [
+        "Not fire-rated"
+      ]
+    },
+    {
+      "id": "appl-safe-002",
+      "name": "Technomax Hotel Safe TA/1",
+      "brand": "Technomax",
+      "category": "appliances",
+      "subcategory": "safe",
+      "specs": {
+        "volume_l": 18,
+        "lock_type": "electronic",
+        "bolt_count": 2,
+        "fire_rating": "none",
+        "floor_mount": true
+      },
+      "estimated_price_eur": 189,
+      "availability_weeks": 2,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "VdS"
+      ],
+      "hotel_usage": [
+        "European hotels"
+      ],
+      "pros": [
+        "Competitive price",
+        "Compact"
+      ],
+      "cons": [
+        "Smaller capacity"
+      ]
+    },
+    {
+      "id": "appl-kettle-001",
+      "name": "Smeg KLF04 Variable Temperature Kettle",
+      "brand": "Smeg",
+      "category": "appliances",
+      "subcategory": "kettle",
+      "specs": {
+        "capacity_l": 1.7,
+        "wattage": 2400,
+        "material": "stainless steel",
+        "auto_shutoff": true,
+        "cordless": true,
+        "temperature_settings": 7
+      },
+      "estimated_price_eur": 149,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Boutique design hotels"
+      ],
+      "pros": [
+        "Iconic design",
+        "Variable temperature",
+        "Strong guest appeal"
+      ],
+      "cons": [
+        "Painted finish can chip in heavy use"
+      ]
+    },
+    {
+      "id": "appl-kettle-002",
+      "name": "Dualit Architect Kettle",
+      "brand": "Dualit",
+      "category": "appliances",
+      "subcategory": "kettle",
+      "specs": {
+        "capacity_l": 1.5,
+        "wattage": 2300,
+        "material": "stainless steel",
+        "auto_shutoff": true,
+        "cordless": true,
+        "temperature_settings": 1
+      },
+      "estimated_price_eur": 99,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "UK boutique hotels"
+      ],
+      "pros": [
+        "Robust British build",
+        "Replaceable parts",
+        "Proven durability"
+      ],
+      "cons": [
+        "Heavier than plastic kettles"
+      ]
+    },
+    {
+      "id": "appl-iron-001",
+      "name": "Laurastar Smart I Ironing System",
+      "brand": "Laurastar",
+      "category": "appliances",
+      "subcategory": "iron",
+      "specs": {
+        "steam_output": "constant 3.5 bar",
+        "soleplate": "aluminium",
+        "auto_shutoff": true,
+        "water_tank_ml": 1500,
+        "weight_g": 1200
+      },
+      "estimated_price_eur": 549,
+      "availability_weeks": 3,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Ultra-luxury suites"
+      ],
+      "pros": [
+        "Best-in-class ironing result",
+        "Very rare in hotels",
+        "Swiss engineering"
+      ],
+      "cons": [
+        "High price and footprint",
+        "Overkill for standard rooms"
+      ]
+    },
+    {
+      "id": "appl-iron-002",
+      "name": "Rowenta Silence Steam Pro",
+      "brand": "Rowenta",
+      "category": "appliances",
+      "subcategory": "iron",
+      "specs": {
+        "steam_output": "260 g/min",
+        "soleplate": "Microsteam 400",
+        "auto_shutoff": true,
+        "water_tank_ml": 350,
+        "weight_g": 1600
+      },
+      "estimated_price_eur": 129,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Upscale hotels"
+      ],
+      "pros": [
+        "Powerful steam",
+        "Reliable brand",
+        "Good value"
+      ],
+      "cons": [
+        "Heavier than travel irons"
+      ]
+    },
+    {
+      "id": "av-speaker-001",
+      "name": "Bang & Olufsen Beosound Level",
+      "brand": "Bang & Olufsen",
+      "category": "av",
+      "subcategory": "speaker",
+      "specs": {
+        "connectivity": "Wi-Fi, Bluetooth, AirPlay 2",
+        "frequency_response": "37 Hz - 22 kHz",
+        "amplifier_w": 210,
+        "room_size": "medium",
+        "mounting": "table/wall"
+      },
+      "estimated_price_eur": 1299,
+      "availability_weeks": 3,
+      "warranty_years": 3,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Aman",
+        "Park Hyatt",
+        "Rosewood"
+      ],
+      "pros": [
+        "Iconic design and sound",
+        "Modular/upgradable",
+        "Strong luxury signal"
+      ],
+      "cons": [
+        "Very expensive",
+        "App dependency"
+      ]
+    },
+    {
+      "id": "av-speaker-002",
+      "name": "Sonos Era 100",
+      "brand": "Sonos",
+      "category": "av",
+      "subcategory": "speaker",
+      "specs": {
+        "connectivity": "Wi-Fi, Bluetooth, AirPlay 2",
+        "frequency_response": "55 Hz - 20 kHz",
+        "amplifier_w": 100,
+        "room_size": "small/medium",
+        "mounting": "table"
+      },
+      "estimated_price_eur": 249,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Soho House",
+        "The Hoxton",
+        "Edition"
+      ],
+      "pros": [
+        "Easy fleet management",
+        "Good sound for size",
+        "Reasonable price"
+      ],
+      "cons": [
+        "Becoming common",
+        "Requires network"
+      ]
+    },
+    {
+      "id": "av-speaker-003",
+      "name": "Genelec 8010A Studio Monitor",
+      "brand": "Genelec",
+      "category": "av",
+      "subcategory": "speaker",
+      "specs": {
+        "connectivity": "XLR/analogue",
+        "frequency_response": "67 Hz - 25 kHz",
+        "amplifier_w": 50,
+        "room_size": "small",
+        "mounting": "table/wall"
+      },
+      "estimated_price_eur": 329,
+      "availability_weeks": 2,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Design suites",
+        "Private cinemas"
+      ],
+      "pros": [
+        "Pro-audio heritage",
+        "Extremely accurate",
+        "Rarity in hotels"
+      ],
+      "cons": [
+        "Requires separate amplifier/streamer",
+        "Industrial look not for all"
+      ]
+    },
+    {
+      "id": "av-speaker-004",
+      "name": "Bowers & Wilkins M-1 Satellite Speaker",
+      "brand": "Bowers & Wilkins",
+      "category": "av",
+      "subcategory": "speaker",
+      "specs": {
+        "connectivity": "speaker terminals",
+        "frequency_response": "72 Hz - 50 kHz",
+        "amplifier_w": 0,
+        "room_size": "small",
+        "mounting": "wall/stand"
+      },
+      "estimated_price_eur": 299,
+      "availability_weeks": 2,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Luxury suites"
+      ],
+      "pros": [
+        "Compact luxury design",
+        "Excellent dispersion"
+      ],
+      "cons": [
+        "Needs external amp/subwoofer"
+      ]
+    },
+    {
+      "id": "av-tv-001",
+      "name": "Samsung HG55BU690DJXXU Hospitality TV",
+      "brand": "Samsung Hospitality",
+      "category": "av",
+      "subcategory": "television",
+      "specs": {
+        "size_inches": 55,
+        "resolution": "4K UHD",
+        "hospitality_os": "Tizen for Hospitality",
+        "hdmi_ports": 3,
+        "energy_class": "D",
+        "installation": "wall/stand"
+      },
+      "estimated_price_eur": 749,
+      "availability_weeks": 2,
+      "warranty_years": 3,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "Marriott",
+        "Hilton",
+        "Hyatt"
+      ],
+      "pros": [
+        "Mature hospitality platform",
+        "Remote management",
+        "Wide availability"
+      ],
+      "cons": [
+        "Common; low exclusivity"
+      ]
+    },
+    {
+      "id": "av-tv-002",
+      "name": "LG 55UR640S9UD Pro:Centric Smart Hotel TV",
+      "brand": "LG Pro:Centric",
+      "category": "av",
+      "subcategory": "television",
+      "specs": {
+        "size_inches": 55,
+        "resolution": "4K UHD",
+        "hospitality_os": "webOS for Hospitality",
+        "hdmi_ports": 3,
+        "energy_class": "D",
+        "installation": "wall/stand"
+      },
+      "estimated_price_eur": 699,
+      "availability_weeks": 2,
+      "warranty_years": 3,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "IHG",
+        "Accor"
+      ],
+      "pros": [
+        "Strong hospitality OS",
+        "Competitive price"
+      ],
+      "cons": [
+        "Common brand"
+      ]
+    },
+    {
+      "id": "av-tv-003",
+      "name": "Philips 55HFL6114U MediaSuite Android TV",
+      "brand": "Philips MediaSuite",
+      "category": "av",
+      "subcategory": "television",
+      "specs": {
+        "size_inches": 55,
+        "resolution": "4K UHD",
+        "hospitality_os": "Android TV for Hospitality",
+        "hdmi_ports": 4,
+        "energy_class": "E",
+        "installation": "wall/stand"
+      },
+      "estimated_price_eur": 799,
+      "availability_weeks": 3,
+      "warranty_years": 3,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "Boutique hotels"
+      ],
+      "pros": [
+        "Cloud management",
+        "Android app ecosystem"
+      ],
+      "cons": [
+        "Higher energy use"
+      ]
+    },
+    {
+      "id": "bath-dispenser-001",
+      "name": "Aesop Coriander Seed Body Cleanser 500ml Refill",
+      "brand": "Aesop",
+      "category": "bathroom",
+      "subcategory": "dispenser",
+      "specs": {
+        "capacity_ml": 500,
+        "material": "amber PET",
+        "refill_type": "bulk refill",
+        "locking": false,
+        "brand_match": "Aesop"
+      },
+      "estimated_price_eur": 35,
+      "availability_weeks": 2,
+      "warranty_years": 0,
+      "certifications": [
+        "Vegan",
+        "Leaping Bunny"
+      ],
+      "hotel_usage": [
+        "Aesop-branded hotels",
+        "One&Only"
+      ],
+      "pros": [
+        "Strong design identity",
+        "Sustainable refill model"
+      ],
+      "cons": [
+        "Dispenser not included; must source separately"
+      ]
+    },
+    {
+      "id": "bath-dispenser-002",
+      "name": "Le Labo Santal 33 Body Lotion 500ml Dispenser",
+      "brand": "Le Labo",
+      "category": "bathroom",
+      "subcategory": "dispenser",
+      "specs": {
+        "capacity_ml": 500,
+        "material": "amber glass",
+        "refill_type": "cartridge",
+        "locking": true,
+        "brand_match": "Le Labo"
+      },
+      "estimated_price_eur": 42,
+      "availability_weeks": 3,
+      "warranty_years": 0,
+      "certifications": [
+        "Vegan"
+      ],
+      "hotel_usage": [
+        "Edition",
+        "Fairmont",
+        "Park Hyatt"
+      ],
+      "pros": [
+        "Highly recognizable fragrance",
+        "Lockable dispenser option"
+      ],
+      "cons": [
+        "Premium pricing",
+        "Longer lead times"
+      ]
+    },
+    {
+      "id": "bath-towel-001",
+      "name": "Frette Diamond Border Bath Towel",
+      "brand": "Frette",
+      "category": "bathroom",
+      "subcategory": "towel",
+      "specs": {
+        "gsm": 600,
+        "material": "100% Egyptian cotton",
+        "size_cm": "90x160",
+        "colour_fastness": "high",
+        "certifications": "OEKO-TEX"
+      },
+      "estimated_price_eur": 75,
+      "availability_weeks": 2,
+      "warranty_years": 0,
+      "certifications": [
+        "OEKO-TEX"
+      ],
+      "hotel_usage": [
+        "Ritz-Carlton",
+        "St. Regis",
+        "Four Seasons"
+      ],
+      "pros": [
+        "Benchmark luxury towel",
+        "Durable in commercial laundry"
+      ],
+      "cons": [
+        "Expensive",
+        "Long replacement cycle cost"
+      ]
+    },
+    {
+      "id": "bath-towel-002",
+      "name": "Sferra Bello Bath Towel",
+      "brand": "Sferra",
+      "category": "bathroom",
+      "subcategory": "towel",
+      "specs": {
+        "gsm": 650,
+        "material": "100% long-staple cotton",
+        "size_cm": "86x147",
+        "colour_fastness": "high",
+        "certifications": "OEKO-TEX"
+      },
+      "estimated_price_eur": 68,
+      "availability_weeks": 2,
+      "warranty_years": 0,
+      "certifications": [
+        "OEKO-TEX"
+      ],
+      "hotel_usage": [
+        "Boutique luxury hotels"
+      ],
+      "pros": [
+        "Softer hand feel",
+        "Slightly rarer than Frette"
+      ],
+      "cons": [
+        "Limited EU distribution"
+      ]
+    },
+    {
+      "id": "bath-toiletries-001",
+      "name": "Diptyque Philosykos Amenities Set",
+      "brand": "Diptyque",
+      "category": "bathroom",
+      "subcategory": "toiletries",
+      "specs": {
+        "volume_ml": 50,
+        "fragrance_profile": "fig / woody",
+        "vegan": true,
+        "sustainability": "refillable dispensers",
+        "refillable": true
+      },
+      "estimated_price_eur": 12,
+      "availability_weeks": 3,
+      "warranty_years": 0,
+      "certifications": [
+        "Vegan"
+      ],
+      "hotel_usage": [
+        "Mandarin Oriental"
+      ],
+      "pros": [
+        "Extremely rare and luxurious",
+        "Strong guest takeaway value"
+      ],
+      "cons": [
+        "Very high cost per unit"
+      ]
+    },
+    {
+      "id": "bath-toiletries-002",
+      "name": "Grown Alchemist Hand Cream 65ml",
+      "brand": "Grown Alchemist",
+      "category": "bathroom",
+      "subcategory": "toiletries",
+      "specs": {
+        "volume_ml": 65,
+        "fragrance_profile": "vanilla / orange peel",
+        "vegan": true,
+        "sustainability": "recyclable tube",
+        "refillable": false
+      },
+      "estimated_price_eur": 8,
+      "availability_weeks": 2,
+      "warranty_years": 0,
+      "certifications": [
+        "Vegan",
+        "Cruelty-free"
+      ],
+      "hotel_usage": [
+        "Design hotels",
+        "Rosewood"
+      ],
+      "pros": [
+        "Clean-science positioning",
+        "Good design",
+        "Reasonable unit cost"
+      ],
+      "cons": [
+        "Becoming more common"
+      ]
+    },
+    {
+      "id": "boh-cooking-001",
+      "name": "Rational iCombi Pro 10-1/1",
+      "brand": "Rational",
+      "category": "back_of_house",
+      "subcategory": "cooking",
+      "specs": {
+        "capacity": "10 x GN 1/1",
+        "power": "18.5 kW electric",
+        "connectivity": "iCareSystem",
+        "cleaning": "automatic",
+        "dimensions_cm": "84.7x78.6x104.2"
+      },
+      "estimated_price_eur": 22500,
+      "availability_weeks": 8,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "ISO9001"
+      ],
+      "hotel_usage": [
+        "Luxury hotel kitchens"
+      ],
+      "pros": [
+        "Market-leading combi oven",
+        "Remote monitoring",
+        "Huge labour savings"
+      ],
+      "cons": [
+        "High capital cost",
+        "Requires water treatment"
+      ]
+    },
+    {
+      "id": "boh-dishwashing-001",
+      "name": "Winterhalter UC Excellence iPlus",
+      "brand": "Winterhalter",
+      "category": "back_of_house",
+      "subcategory": "dishwashing",
+      "specs": {
+        "rack_size": "500x500 mm",
+        "wash_capacity": "65 baskets/hour",
+        "water_consumption_l": "2.6 per cycle",
+        "drying": "condensation",
+        "dimensions_cm": "60x63x82"
+      },
+      "estimated_price_eur": 9500,
+      "availability_weeks": 6,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "ISO9001"
+      ],
+      "hotel_usage": [
+        "High-end restaurants",
+        "Hotels"
+      ],
+      "pros": [
+        "Excellent wash results",
+        "Low water use",
+        "Reliable German build"
+      ],
+      "cons": [
+        "Premium price",
+        "Needs trained operator"
+      ]
+    },
+    {
+      "id": "boh-laundry-001",
+      "name": "Miele Professional PWM 908 [EL DP]",
+      "brand": "Miele Professional",
+      "category": "back_of_house",
+      "subcategory": "laundry",
+      "specs": {
+        "capacity_kg": 8,
+        "spin_speed_rpm": 1400,
+        "water_consumption_l": 49,
+        "programs": 33,
+        "connectivity": "Miele@home"
+      },
+      "estimated_price_eur": 6200,
+      "availability_weeks": 5,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "Boutique hotels with in-house laundry"
+      ],
+      "pros": [
+        "Extremely durable",
+        "Precise programmes",
+        "Good residual moisture"
+      ],
+      "cons": [
+        "High upfront cost",
+        "Smaller capacity than industrial machines"
+      ]
+    },
+    {
+      "id": "boh-small-001",
+      "name": "Hoshizaki IM-21CNE Ice Maker",
+      "brand": "Hoshizaki",
+      "category": "back_of_house",
+      "subcategory": "small_equipment",
+      "specs": {
+        "daily_output_kg": 22,
+        "bin_capacity_kg": 11.5,
+        "coolant": "R290",
+        "dimensions_cm": "39.8x45.1x78.8"
+      },
+      "estimated_price_eur": 1450,
+      "availability_weeks": 3,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Hotels",
+        "Bars"
+      ],
+      "pros": [
+        "Reliable ice quality",
+        "Compact",
+        "Good service network"
+      ],
+      "cons": [
+        "Needs filtered water"
+      ]
+    },
+    {
+      "id": "gen-faucet-001",
+      "name": "Axor Starck Organic Basin Mixer",
+      "brand": "Axor",
+      "category": "general",
+      "subcategory": "faucet",
+      "specs": {
+        "material": "brass",
+        "finish": "chrome",
+        "flow_rate_l_min": 3.5,
+        "installation": "single-lever",
+        "cartridge": "ceramic"
+      },
+      "estimated_price_eur": 450,
+      "availability_weeks": 3,
+      "warranty_years": 5,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Luxury bathrooms"
+      ],
+      "pros": [
+        "Philippe Starck design",
+        "Water-saving"
+      ],
+      "cons": [
+        "Premium price for fittings"
+      ]
+    },
+    {
+      "id": "gen-faucet-002",
+      "name": "Dornbracht Tara Classic Basin Mixer",
+      "brand": "Dornbracht",
+      "category": "general",
+      "subcategory": "faucet",
+      "specs": {
+        "material": "brass",
+        "finish": "polished chrome",
+        "flow_rate_l_min": 5,
+        "installation": "cross-handle",
+        "cartridge": "ceramic"
+      },
+      "estimated_price_eur": 620,
+      "availability_weeks": 4,
+      "warranty_years": 5,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "High-end hotels"
+      ],
+      "pros": [
+        "Timeless classic design",
+        "Excellent plating quality"
+      ],
+      "cons": [
+        "Very expensive",
+        "Long lead times"
+      ]
+    },
+    {
+      "id": "gen-shower-001",
+      "name": "Hansgrohe Raindance E 300 Overhead Shower",
+      "brand": "Hansgrohe",
+      "category": "general",
+      "subcategory": "shower",
+      "specs": {
+        "diameter_mm": 300,
+        "finish": "chrome",
+        "technology": "AirPower",
+        "flow_rate_l_min": 15,
+        "installation": "ceiling"
+      },
+      "estimated_price_eur": 380,
+      "availability_weeks": 2,
+      "warranty_years": 5,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Upscale and luxury hotels"
+      ],
+      "pros": [
+        "Great rainfall effect",
+        "Reliable German quality"
+      ],
+      "cons": [
+        "Requires good water pressure"
+      ]
+    },
+    {
+      "id": "gen-wifi-001",
+      "name": "Cisco Meraki MR46 Access Point",
+      "brand": "Cisco Meraki",
+      "category": "general",
+      "subcategory": "wifi",
+      "specs": {
+        "standard": "Wi-Fi 6",
+        "max_clients": 256,
+        "throughput_gbps": 2.98,
+        "management": "cloud",
+        "poe": true
+      },
+      "estimated_price_eur": 899,
+      "availability_weeks": 2,
+      "warranty_years": 3,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Hotels",
+        "Enterprises"
+      ],
+      "pros": [
+        "Cloud-managed",
+        "Very reliable"
+      ],
+      "cons": [
+        "Requires annual license"
+      ]
+    },
+    {
+      "id": "gen-projector-001",
+      "name": "Barco G60-W7 Laser Projector",
+      "brand": "Barco",
+      "category": "general",
+      "subcategory": "projector",
+      "specs": {
+        "brightness_lumens": 7000,
+        "resolution": "WUXGA",
+        "laser_hours": 20000,
+        "installation": "ceiling",
+        "lens": "optional"
+      },
+      "estimated_price_eur": 8500,
+      "availability_weeks": 6,
+      "warranty_years": 3,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Ballrooms",
+        "Event spaces"
+      ],
+      "pros": [
+        "High brightness",
+        "Long laser life"
+      ],
+      "cons": [
+        "Requires professional installation"
+      ]
+    },
+    {
+      "id": "gen-furniture-001",
+      "name": "Poltrona Frau Archibald Armchair",
+      "brand": "Poltrona Frau",
+      "category": "general",
+      "subcategory": "furniture",
+      "specs": {
+        "material": "leather",
+        "frame": "steel",
+        "designer": "Jean-Marie Massaud",
+        "origin": "Italy"
+      },
+      "estimated_price_eur": 3200,
+      "availability_weeks": 10,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Luxury lobbies",
+        "Suites"
+      ],
+      "pros": [
+        "Iconic Italian leather",
+        "Timeless design"
+      ],
+      "cons": [
+        "Very long lead time",
+        "High price"
+      ]
+    },
+    {
+      "id": "appl-kettle-003",
+      "name": "Bodum Bistro Electric Water Kettle 1.0L",
+      "brand": "Bodum",
+      "category": "appliances",
+      "subcategory": "kettle",
+      "specs": {
+        "capacity_l": 1.0,
+        "wattage": 1850,
+        "material": "plastic/silicone",
+        "auto_shutoff": true,
+        "cordless": true,
+        "temperature_settings": 1
+      },
+      "estimated_price_eur": 59,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Budget boutique hotels"
+      ],
+      "pros": [
+        "Compact",
+        "Colorful design",
+        "Low price"
+      ],
+      "cons": [
+        "Less premium feel",
+        "Plastic body"
+      ]
+    },
+    {
+      "id": "appl-iron-003",
+      "name": "Braun TexStyle 9 Steam Iron",
+      "brand": "Braun",
+      "category": "appliances",
+      "subcategory": "iron",
+      "specs": {
+        "steam_output": "230 g/min",
+        "soleplate": "Eloxal",
+        "auto_shutoff": true,
+        "water_tank_ml": 300,
+        "weight_g": 1500
+      },
+      "estimated_price_eur": 99,
+      "availability_weeks": 1,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Midscale hotels"
+      ],
+      "pros": [
+        "Reliable German brand",
+        "Good steam output"
+      ],
+      "cons": [
+        "Standard design, no luxury signal"
+      ]
+    },
+    {
+      "id": "bath-dispenser-003",
+      "name": "Malin+Goetz Rum Body Wash Dispenser 473ml",
+      "brand": "Malin+Goetz",
+      "category": "bathroom",
+      "subcategory": "dispenser",
+      "specs": {
+        "capacity_ml": 473,
+        "material": "amber plastic",
+        "refill_type": "bulk refill",
+        "locking": false,
+        "brand_match": "Malin+Goetz"
+      },
+      "estimated_price_eur": 32,
+      "availability_weeks": 2,
+      "warranty_years": 0,
+      "certifications": [
+        "Vegan"
+      ],
+      "hotel_usage": [
+        "Design hotels"
+      ],
+      "pros": [
+        "Distinctive rum fragrance",
+        "Clean apothecary aesthetic"
+      ],
+      "cons": [
+        "Dispenser hardware not included"
+      ]
+    },
+    {
+      "id": "bath-towel-003",
+      "name": "Christy Supreme Hygro Bath Towel",
+      "brand": "Christy",
+      "category": "bathroom",
+      "subcategory": "towel",
+      "specs": {
+        "gsm": 650,
+        "material": "100% Supima cotton",
+        "size_cm": "90x165",
+        "colour_fastness": "high",
+        "certifications": "OEKO-TEX"
+      },
+      "estimated_price_eur": 45,
+      "availability_weeks": 1,
+      "warranty_years": 0,
+      "certifications": [
+        "OEKO-TEX"
+      ],
+      "hotel_usage": [
+        "UK hotels"
+      ],
+      "pros": [
+        "Soft and absorbent",
+        "Good value"
+      ],
+      "cons": [
+        "Less prestige than Frette or Sferra"
+      ]
+    },
+    {
+      "id": "bath-toiletries-003",
+      "name": "Aromatherapy Associates Deep Relax Bath & Shower Oil 55ml",
+      "brand": "Aromatherapy Associates",
+      "category": "bathroom",
+      "subcategory": "toiletries",
+      "specs": {
+        "volume_ml": 55,
+        "fragrance_profile": "vetiver / chamomile / sandalwood",
+        "vegan": true,
+        "sustainability": "recyclable glass",
+        "refillable": false
+      },
+      "estimated_price_eur": 14,
+      "availability_weeks": 2,
+      "warranty_years": 0,
+      "certifications": [
+        "Vegan",
+        "Cruelty-free"
+      ],
+      "hotel_usage": [
+        "Spa hotels",
+        "Mandarin Oriental"
+      ],
+      "pros": [
+        "Strong spa/wellness positioning",
+        "Premium fragrance"
+      ],
+      "cons": [
+        "High unit cost"
+      ]
+    },
+    {
+      "id": "boh-cooking-002",
+      "name": "Electrolux Professional thermaline 90 Modular Cooking Range",
+      "brand": "Electrolux Professional",
+      "category": "back_of_house",
+      "subcategory": "cooking",
+      "specs": {
+        "configuration": "modular gas/electric",
+        "power": "varies",
+        "connectivity": "optional",
+        "cleaning": "manual",
+        "dimensions_cm": "custom"
+      },
+      "estimated_price_eur": 18500,
+      "availability_weeks": 10,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "ISO9001"
+      ],
+      "hotel_usage": [
+        "Hotel kitchens"
+      ],
+      "pros": [
+        "Modular flexibility",
+        "Wide service network"
+      ],
+      "cons": [
+        "Long lead time",
+        "Requires kitchen design coordination"
+      ]
+    },
+    {
+      "id": "boh-dishwashing-002",
+      "name": "Meiko UPster U 500 Undercounter Dishwasher",
+      "brand": "Meiko",
+      "category": "back_of_house",
+      "subcategory": "dishwashing",
+      "specs": {
+        "rack_size": "500x500 mm",
+        "wash_capacity": "40 baskets/hour",
+        "water_consumption_l": "2.8 per cycle",
+        "drying": "condensation",
+        "dimensions_cm": "60x63x82"
+      },
+      "estimated_price_eur": 7200,
+      "availability_weeks": 5,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "ISO9001"
+      ],
+      "hotel_usage": [
+        "Hotels",
+        "Restaurants"
+      ],
+      "pros": [
+        "Reliable German engineering",
+        "Good service network"
+      ],
+      "cons": [
+        "Slightly lower capacity than Winterhalter"
+      ]
+    },
+    {
+      "id": "boh-laundry-002",
+      "name": "Electrolux Professional WH6-6 Washer",
+      "brand": "Electrolux Professional",
+      "category": "back_of_house",
+      "subcategory": "laundry",
+      "specs": {
+        "capacity_kg": 6,
+        "spin_speed_rpm": 1200,
+        "water_consumption_l": 45,
+        "programs": 20,
+        "connectivity": "optional"
+      },
+      "estimated_price_eur": 4800,
+      "availability_weeks": 4,
+      "warranty_years": 2,
+      "certifications": [
+        "CE",
+        "Energy Label"
+      ],
+      "hotel_usage": [
+        "Small hotels"
+      ],
+      "pros": [
+        "Lower capital cost",
+        "Good efficiency"
+      ],
+      "cons": [
+        "Lower capacity than Miele"
+      ]
+    },
+    {
+      "id": "gen-shower-002",
+      "name": "Vola 060 One-Handle Mixer Shower",
+      "brand": "Vola",
+      "category": "general",
+      "subcategory": "shower",
+      "specs": {
+        "diameter_mm": 200,
+        "finish": "chrome or matte black",
+        "technology": "thermostatic",
+        "flow_rate_l_min": 12,
+        "installation": "wall"
+      },
+      "estimated_price_eur": 950,
+      "availability_weeks": 6,
+      "warranty_years": 5,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Design-led luxury hotels"
+      ],
+      "pros": [
+        "Iconic Danish design",
+        "Extremely rare and exclusive"
+      ],
+      "cons": [
+        "Very expensive",
+        "Long lead times"
+      ]
+    },
+    {
+      "id": "gen-furniture-002",
+      "name": "B&B Italia Husk Armchair",
+      "brand": "B&B Italia",
+      "category": "general",
+      "subcategory": "furniture",
+      "specs": {
+        "material": "fabric or leather",
+        "frame": "steel",
+        "designer": "Patricia Urquiola",
+        "origin": "Italy"
+      },
+      "estimated_price_eur": 2600,
+      "availability_weeks": 10,
+      "warranty_years": 2,
+      "certifications": [
+        "CE"
+      ],
+      "hotel_usage": [
+        "Luxury lobbies",
+        "Suites"
+      ],
+      "pros": [
+        "High design value",
+        "Comfortable"
+      ],
+      "cons": [
+        "Long lead time",
+        "Premium price"
+      ]
+    }
+  ]
+}

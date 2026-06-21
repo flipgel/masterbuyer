@@ -1,0 +1,241 @@
+{
+  "hotels": [
+    {
+      "name": "Aman",
+      "group": "Aman Resorts",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Aman Skincare"],
+        "towels": ["Aman"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Strong own-brand identity; ultra-discreet technology.",
+      "confidence": "high"
+    },
+    {
+      "name": "Four Seasons",
+      "group": "Four Seasons Hotels and Resorts",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Custom Four Seasons", "Frederic Malle"],
+        "towels": ["Frette"],
+        "hairdryer": ["Dyson", "ghd"],
+        "speaker": ["Bang & Olufsen", "Sonos"],
+        "television": ["Samsung Hospitality", "LG Pro:Centric"]
+      },
+      "notes": "Often uses bespoke amenities; AV varies by property.",
+      "confidence": "medium"
+    },
+    {
+      "name": "The Ritz-Carlton",
+      "group": "Marriott International",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Asprey Purple Water"],
+        "towels": ["Frette"],
+        "hairdryer": ["ghd"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Classic luxury; Asprey partnership well documented.",
+      "confidence": "high"
+    },
+    {
+      "name": "St. Regis",
+      "group": "Marriott International",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Remède"],
+        "towels": ["Frette"],
+        "television": ["Samsung Hospitality", "LG Pro:Centric"]
+      },
+      "notes": "Remède bath program is a signature.",
+      "confidence": "high"
+    },
+    {
+      "name": "Edition",
+      "group": "Marriott International",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Le Labo"],
+        "speaker": ["Bang & Olufsen", "Sonos"],
+        "television": ["LG Pro:Centric"]
+      },
+      "notes": "Design-forward; Le Labo Santal 33 widely reported.",
+      "confidence": "high"
+    },
+    {
+      "name": "Park Hyatt",
+      "group": "Hyatt Hotels",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Le Labo"],
+        "towels": ["Frette"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Le Labo Bergamote 22 common in Park Hyatt bathrooms.",
+      "confidence": "high"
+    },
+    {
+      "name": "Rosewood",
+      "group": "Rosewood Hotel Group",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Custom Rosewood", "Le Labo"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Sense of Place philosophy; amenities vary by location.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Mandarin Oriental",
+      "group": "Mandarin Oriental Hotel Group",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Diptyque", "Aromatherapy Associates"],
+        "towels": ["Frette"],
+        "television": ["Samsung Hospitality", "LG Pro:Centric"]
+      },
+      "notes": "Spa heritage influences amenity choices.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Belmond",
+      "group": "LVMH / Belmond",
+      "tier": "luxury",
+      "regions": ["Europe", "Americas", "Asia"],
+      "amenity_brands": {
+        "toiletries": ["Acqua di Parma"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Acqua di Parma partnership common in European properties.",
+      "confidence": "high"
+    },
+    {
+      "name": "Raffles",
+      "group": "Accor",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Custom Raffles"],
+        "towels": ["Frette"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Strong own-branding; historic luxury positioning.",
+      "confidence": "medium"
+    },
+    {
+      "name": "The Peninsula",
+      "group": "The Hongkong and Shanghai Hotels",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Custom Peninsula"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Tech-forward rooms, often custom amenities.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Baccarat Hotel",
+      "group": "Baccarat",
+      "tier": "luxury",
+      "regions": ["Americas", "Europe"],
+      "amenity_brands": {
+        "toiletries": ["Maison Francis Kurkdjian"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Fragrance-forward luxury positioning.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Fairmont",
+      "group": "Accor",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Le Labo Rose 31"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Le Labo Rose 31 widely used in North America and Europe.",
+      "confidence": "high"
+    },
+    {
+      "name": "Soho House",
+      "group": "Soho House & Co",
+      "tier": "luxury",
+      "regions": ["Europe", "Americas"],
+      "amenity_brands": {
+        "toiletries": ["Cowshed"],
+        "speaker": ["Sonos"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Cowshed is the house brand; Sonos common in rooms.",
+      "confidence": "high"
+    },
+    {
+      "name": "The Hoxton",
+      "group": "Ennismore",
+      "tier": "upscale",
+      "regions": ["Europe", "Americas"],
+      "amenity_brands": {
+        "toiletries": ["The Hoxton custom"],
+        "speaker": ["Sonos"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Boutique-lifestyle positioning.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Shangri-La",
+      "group": "Shangri-La Group",
+      "tier": "luxury",
+      "regions": ["Asia", "Europe", "Middle East"],
+      "amenity_brands": {
+        "toiletries": ["L'Occitane", "Shangri-La custom"],
+        "television": ["Samsung Hospitality", "LG Pro:Centric"]
+      },
+      "notes": "Asia-focused; amenity partnerships vary by region.",
+      "confidence": "medium"
+    },
+    {
+      "name": "One&Only",
+      "group": "Kerzner International",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Aesop", "Custom One&Only"],
+        "speaker": ["Bang & Olufsen"],
+        "television": ["Samsung Hospitality"]
+      },
+      "notes": "Resort-focused; design varies by property.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Six Senses",
+      "group": "IHG Hotels & Resorts",
+      "tier": "luxury",
+      "regions": ["global"],
+      "amenity_brands": {
+        "toiletries": ["Six Senses custom"],
+        "speaker": ["Bang & Olufsen"]
+      },
+      "notes": "Sustainability and wellness core to brand; own amenities.",
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "suppliers": [
+    {
+      "name": "Nisbets",
+      "country": "United Kingdom",
+      "website": "https://www.nisbets.co.uk",
+      "specialties": ["back_of_house", "kitchen", "housekeeping", "small_equipment"],
+      "service_countries": ["GB", "IE", "FR", "DE", "NL", "BE"],
+      "brands_carried": ["Rational", "Miele Professional", "Winterhalter", "Lincat", "Dualit"],
+      "certifications": ["ISO9001"],
+      "notes": "Large European catering and hospitality equipment distributor."
+    },
+    {
+      "name": "Bunzl Catering Supplies",
+      "country": "United Kingdom",
+      "website": "https://www.bunzlcs.co.uk",
+      "specialties": ["bathroom", "housekeeping", "back_of_house", "disposables"],
+      "service_countries": ["GB", "IE"],
+      "brands_carried": ["Diversey", "Ecolab", "Tork", "Kimberly-Clark"],
+      "certifications": ["ISO9001"],
+      "notes": "Major hospitality disposables and hygiene distributor."
+    },
+    {
+      "name": "Out of Eden",
+      "country": "United Kingdom",
+      "website": "https://www.outofeden.co.uk",
+      "specialties": ["bathroom", "toiletries", "towels"],
+      "service_countries": ["GB", "IE"],
+      "brands_carried": ["The White Company", "Arran Aromatics", "Miller Harris"],
+      "certifications": ["ISO9001"],
+      "notes": "Hotel toiletries, amenities, and guest-room accessories."
+    },
+    {
+      "name": "HorecaTraders",
+      "country": "Netherlands",
+      "website": "https://www.horecatraders.com",
+      "specialties": ["back_of_house", "kitchen", "bar", "housekeeping"],
+      "service_countries": ["NL", "BE", "DE", "FR"],
+      "brands_carried": ["Hendi", "Bartscher", "Saro", "Combisteel"],
+      "certifications": [],
+      "notes": "Dutch Horeca equipment wholesaler with EU shipping."
+    },
+    {
+      "name": "Horeca.com",
+      "country": "Netherlands",
+      "website": "https://www.horeca.com",
+      "specialties": ["back_of_house", "kitchen", "bar", "housekeeping"],
+      "service_countries": ["NL", "BE", "DE", "FR", "AT"],
+      "brands_carried": ["Bartscher", "Hendi", "Saro", "Inomak"],
+      "certifications": [],
+      "notes": "B2B hospitality equipment marketplace."
+    },
+    {
+      "name": "Dometic Hospitality",
+      "country": "Sweden",
+      "website": "https://www.dometic.com",
+      "specialties": ["appliances", "minibar", "fridge"],
+      "service_countries": ["DE", "FR", "IT", "ES", "NL", "BE", "AT", "CH", "GB"],
+      "brands_carried": ["Dometic"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Global leader in hotel minibars and refrigeration."
+    },
+    {
+      "name": "Indel B",
+      "country": "Italy",
+      "website": "https://www.indelb.com",
+      "specialties": ["appliances", "minibar", "fridge"],
+      "service_countries": ["IT", "FR", "DE", "ES", "NL", "BE", "CH", "AT"],
+      "brands_carried": ["Indel B"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Italian manufacturer of hotel minibars and wine coolers."
+    },
+    {
+      "name": "Minibar Systems",
+      "country": "Italy",
+      "website": "https://www.minibarsystems.com",
+      "specialties": ["appliances", "minibar"],
+      "service_countries": ["IT", "FR", "DE", "ES", "GB", "CH"],
+      "brands_carried": ["Minibar Systems"],
+      "certifications": ["CE"],
+      "notes": "Specialist in absorption and compressor minibars."
+    },
+    {
+      "name": "Bordogna",
+      "country": "Italy",
+      "website": "https://www.bordogna.eu",
+      "specialties": ["appliances", "safe"],
+      "service_countries": ["IT", "FR", "DE", "ES", "GB", "CH", "AT"],
+      "brands_carried": ["Bordogna"],
+      "certifications": ["CE", "VdS", "ECB-S"],
+      "notes": "Italian manufacturer of hotel safes."
+    },
+    {
+      "name": "Technomax",
+      "country": "Italy",
+      "website": "https://www.technomax.it",
+      "specialties": ["appliances", "safe"],
+      "service_countries": ["IT", "FR", "DE", "ES", "GB", "CH"],
+      "brands_carried": ["Technomax"],
+      "certifications": ["CE", "VdS"],
+      "notes": "Hotel and residential safes."
+    },
+    {
+      "name": "Dyson Professional",
+      "country": "United Kingdom",
+      "website": "https://www.dyson.co.uk/commercial",
+      "specialties": ["appliances", "hairdryer", "aircare"],
+      "service_countries": ["GB", "IE", "FR", "DE", "ES", "IT", "NL", "BE"],
+      "brands_carried": ["Dyson"],
+      "certifications": ["CE"],
+      "notes": "Direct commercial sales for hospitality."
+    },
+    {
+      "name": "Smeg Professional",
+      "country": "Italy",
+      "website": "https://www.smeg.com",
+      "specialties": ["appliances", "kettle", "fridge"],
+      "service_countries": ["IT", "FR", "DE", "ES", "GB", "NL", "BE", "CH"],
+      "brands_carried": ["Smeg"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Retro and design-led small appliances."
+    },
+    {
+      "name": "Miele Professional",
+      "country": "Germany",
+      "website": "https://www.miele.com/c/professional.htm",
+      "specialties": ["appliances", "back_of_house", "laundry", "iron"],
+      "service_countries": ["DE", "AT", "CH", "FR", "IT", "ES", "NL", "BE", "GB"],
+      "brands_carried": ["Miele Professional"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Premium commercial laundry and ironing systems."
+    },
+    {
+      "name": "Bang & Olufsen Hospitality",
+      "country": "Denmark",
+      "website": "https://www.bang-olufsen.com",
+      "specialties": ["av", "speaker", "television"],
+      "service_countries": ["DK", "DE", "FR", "GB", "IT", "ES", "NL", "BE", "CH"],
+      "brands_carried": ["Bang & Olufsen"],
+      "certifications": ["CE"],
+      "notes": "Luxury AV; often specified by interior designers."
+    },
+    {
+      "name": "Sonos Professional",
+      "country": "United States",
+      "website": "https://www.sonos.com/en-us/pro",
+      "specialties": ["av", "speaker"],
+      "service_countries": ["GB", "IE", "FR", "DE", "NL", "BE", "ES", "IT"],
+      "brands_carried": ["Sonos"],
+      "certifications": ["CE"],
+      "notes": "Networked multi-room audio; strong EU distribution."
+    },
+    {
+      "name": "Samsung Hospitality Europe",
+      "country": "Netherlands",
+      "website": "https://displaysolutions.samsung.com",
+      "specialties": ["av", "television"],
+      "service_countries": ["DE", "FR", "IT", "ES", "NL", "BE", "GB", "CH", "AT"],
+      "brands_carried": ["Samsung Hospitality"],
+      "certifications": ["CE", "Energy Label"],
+      "notes": "Dominant hospitality TV platform in Europe."
+    },
+    {
+      "name": "LG Pro:Centric Europe",
+      "country": "United Kingdom",
+      "website": "https://www.lg.com/uk/business/hotel-tv",
+      "specialties": ["av", "television"],
+      "service_countries": ["GB", "IE", "FR", "DE", "IT", "ES", "NL", "BE"],
+      "brands_carried": ["LG Pro:Centric"],
+      "certifications": ["CE", "Energy Label"],
+      "notes": "Hospitality TV and signage platform."
+    },
+    {
+      "name": "Philips MediaSuite Europe",
+      "country": "Netherlands",
+      "website": "https://www.philips.com/healthcare-matters/solutions/mediasuite",
+      "specialties": ["av", "television"],
+      "service_countries": ["NL", "DE", "FR", "GB", "IT", "ES", "BE"],
+      "brands_carried": ["Philips MediaSuite"],
+      "certifications": ["CE", "Energy Label"],
+      "notes": "Cloud-managed hospitality TVs."
+    },
+    {
+      "name": "Frette Hospitality",
+      "country": "Italy",
+      "website": "https://www.frette.com",
+      "specialties": ["bathroom", "towels", "linens"],
+      "service_countries": ["IT", "FR", "GB", "DE", "ES", "CH", "US"],
+      "brands_carried": ["Frette"],
+      "certifications": ["OEKO-TEX"],
+      "notes": "Luxury Italian linens widely used in 5-star hotels."
+    },
+    {
+      "name": "Sferra",
+      "country": "Italy",
+      "website": "https://www.sferra.com",
+      "specialties": ["bathroom", "towels", "linens"],
+      "service_countries": ["IT", "US", "GB"],
+      "brands_carried": ["Sferra"],
+      "certifications": ["OEKO-TEX"],
+      "notes": "High-end Italian linens."
+    },
+    {
+      "name": "Aesop Professional",
+      "country": "Australia",
+      "website": "https://www.aesop.com",
+      "specialties": ["bathroom", "toiletries"],
+      "service_countries": ["GB", "FR", "DE", "IT", "ES", "NL", "BE"],
+      "brands_carried": ["Aesop"],
+      "certifications": ["Leaping Bunny", "B Corp"],
+      "notes": "Design-led vegan toiletries; EU retail and trade accounts."
+    },
+    {
+      "name": "Le Labo Hospitality",
+      "country": "United States",
+      "website": "https://www.lelabofragrances.com/hospitality.html",
+      "specialties": ["bathroom", "toiletries"],
+      "service_countries": ["GB", "FR", "DE", "IT", "ES", "NL", "BE"],
+      "brands_carried": ["Le Labo"],
+      "certifications": ["Vegan"],
+      "notes": "Highly sought-after fragrance house for hotel amenities."
+    },
+    {
+      "name": "Grown Alchemist Professional",
+      "country": "Australia",
+      "website": "https://www.grownalchemist.com",
+      "specialties": ["bathroom", "toiletries"],
+      "service_countries": ["GB", "FR", "DE", "IT", "ES", "NL", "BE"],
+      "brands_carried": ["Grown Alchemist"],
+      "certifications": ["Vegan", "Cruelty-free"],
+      "notes": "Clean-science skincare brand popular in boutique luxury."
+    },
+    {
+      "name": "Rational UK",
+      "country": "United Kingdom",
+      "website": "https://www.rational-online.com",
+      "specialties": ["back_of_house", "cooking"],
+      "service_countries": ["GB", "IE"],
+      "brands_carried": ["Rational"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Combi-oven market leader; local UK service."
+    },
+    {
+      "name": "Rational GmbH",
+      "country": "Germany",
+      "website": "https://www.rational-online.de",
+      "specialties": ["back_of_house", "cooking"],
+      "service_countries": ["DE", "AT", "CH", "FR", "IT", "ES", "NL", "BE"],
+      "brands_carried": ["Rational"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "German manufacturer with EU-wide service."
+    },
+    {
+      "name": "Winterhalter",
+      "country": "Germany",
+      "website": "https://www.winterhalter.com",
+      "specialties": ["back_of_house", "dishwashing"],
+      "service_countries": ["DE", "AT", "CH", "FR", "IT", "ES", "NL", "BE", "GB"],
+      "brands_carried": ["Winterhalter"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Premium commercial warewashing."
+    },
+    {
+      "name": "Electrolux Professional",
+      "country": "Sweden",
+      "website": "https://www.electroluxprofessional.com",
+      "specialties": ["back_of_house", "kitchen", "laundry"],
+      "service_countries": ["SE", "DE", "FR", "IT", "ES", "NL", "BE", "GB"],
+      "brands_carried": ["Electrolux Professional"],
+      "certifications": ["CE", "ISO9001"],
+      "notes": "Broad professional kitchen and laundry range."
+    },
+    {
+      "name": "Hansgrohe Professional",
+      "country": "Germany",
+      "website": "https://www.hansgrohe.com",
+      "specialties": ["general", "faucet", "shower"],
+      "service_countries": ["DE", "AT", "CH", "FR", "IT", "ES", "NL", "BE", "GB"],
+      "brands_carried": ["Hansgrohe", "Axor"],
+      "certifications": ["CE"],
+      "notes": "Premium bathroom fittings; Axor design line."
+    },
+    {
+      "name": "Dornbracht",
+      "country": "Germany",
+      "website": "https://www.dornbracht.com",
+      "specialties": ["general", "faucet", "shower"],
+      "service_countries": ["DE", "AT", "CH", "FR", "IT", "ES", "NL", "BE", "GB"],
+      "brands_carried": ["Dornbracht"],
+      "certifications": ["CE"],
+      "notes": "Luxury fittings; high design and price point."
+    },
+    {
+      "name": "Porter & Plot",
+      "country": "United Kingdom",
+      "website": "https://www.porterandplot.com",
+      "specialties": ["bathroom", "toiletries", "towels"],
+      "service_countries": ["GB"],
+      "brands_carried": ["Grown Alchemist", "Aesop", "Miller Harris"],
+      "certifications": [],
+      "notes": "UK boutique hotel amenities supplier."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.cache/
+cache.db
+.pytest_cache/
+ui_smoke.png
+ui_research.png

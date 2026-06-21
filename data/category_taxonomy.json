@@ -1,0 +1,155 @@
+{
+  "categories": {
+    "appliances": {
+      "label": "Guest-room appliances",
+      "description": "Fridges, minibars, safes, kettles, irons, hairdryers",
+      "subcategories": ["hairdryer", "minibar", "safe", "kettle", "iron", "fridge"],
+      "luxury_must_haves": ["quiet operation", "premium finish", "EU voltage", "commercial warranty", "CE marking"],
+      "brand_tiers": {
+        "ultra_luxury": ["Dyson", "Laurastar", "Smeg", "Miele", "Gaggenau"],
+        "established_luxury": ["ghd", "Valera", "Dualit", "Bodum", "Braun", "Rowenta"],
+        "commercial_specialist": ["Dometic", "Indel B", "Minibar Systems", "Bordogna", "Technomax", "Safemark", "Elsafe"]
+      },
+      "weights": {
+        "rarity": 0.15,
+        "quality": 0.30,
+        "value": 0.20,
+        "tco": 0.15,
+        "exclusivity": 0.10,
+        "compliance": 0.10
+      }
+    },
+    "av": {
+      "label": "Electronics & AV",
+      "description": "Speakers and televisions for guest rooms and public spaces",
+      "subcategories": ["speaker", "television"],
+      "luxury_must_haves": ["4K/UHD", "hospitality-grade OS", "remote management", "low standby power", "5-year commercial warranty"],
+      "brand_tiers": {
+        "ultra_luxury": ["Bang & Olufsen", "Bowers & Wilkins", "Genelec"],
+        "established_luxury": ["Sonos", "KEF", "Samsung Hospitality", "LG Pro:Centric", "Philips MediaSuite"],
+        "commercial_specialist": ["Sony BRAVIA Professional", "NEC", "Sharp NEC", "Sapphire", "Hansgrohe"]
+      },
+      "weights": {
+        "rarity": 0.20,
+        "quality": 0.25,
+        "value": 0.20,
+        "tco": 0.15,
+        "exclusivity": 0.10,
+        "compliance": 0.10
+      }
+    },
+    "bathroom": {
+      "label": "Bathroom accessories & amenities",
+      "description": "Dispensers, towels, toiletries",
+      "subcategories": ["dispenser", "towel", "toiletries"],
+      "luxury_must_haves": ["refillable / sustainable packaging", "hypoallergenic", "premium fragrance", "consistent brand narrative", "EU cosmetic compliance"],
+      "brand_tiers": {
+        "ultra_luxury": ["Aesop", "Le Labo", "Diptyque", "Bamford", "Grown Alchemist", "Frette", "Sferra"],
+        "established_luxury": ["Malin+Goetz", "Miller Harris", "Aromatherapy Associates", "Rituals", "L'Occitane", "Christy", "Yves Delorme"],
+        "commercial_specialist": ["Diversey", "Ecolab", "Gojo", "Kimberly-Clark", "Tork"]
+      },
+      "weights": {
+        "rarity": 0.25,
+        "quality": 0.25,
+        "value": 0.15,
+        "tco": 0.10,
+        "exclusivity": 0.20,
+        "compliance": 0.05
+      }
+    },
+    "back_of_house": {
+      "label": "Back-of-house & F&B equipment",
+      "description": "Kitchen, housekeeping, laundry, and service equipment",
+      "subcategories": ["cooking", "dishwashing", "laundry", "housekeeping", "refrigeration", "small_equipment"],
+      "luxury_must_haves": ["energy efficiency", "NSF / HACCP compatible", "service network in EU", "parts availability", "commercial warranty"],
+      "brand_tiers": {
+        "ultra_luxury": ["Rational", "Miele Professional", "Winterhalter", "Electrolux Professional"],
+        "established_luxury": ["Hobart", "Meiko", "Merrychef", "Lincat", "Viking Range"],
+        "commercial_specialist": ["Henkelman", "Sammic", "Hoshizaki", "Fagor", "Unox"]
+      },
+      "weights": {
+        "rarity": 0.10,
+        "quality": 0.30,
+        "value": 0.20,
+        "tco": 0.25,
+        "exclusivity": 0.05,
+        "compliance": 0.10
+      }
+    },
+    "general": {
+      "label": "General hotel fixtures & systems",
+      "description": "Faucets, showers, telephones, Wi-Fi, projectors, furniture — lighter coverage",
+      "subcategories": ["faucet", "shower", "telephone", "wifi", "projector", "furniture"],
+      "luxury_must_haves": ["design coherence", "durability", "EU compliance", "local support"],
+      "brand_tiers": {
+        "ultra_luxury": ["Axor", "Dornbracht", "Hansgrohe", "Vola", "B&B Italia", "Poltrona Frau"],
+        "established_luxury": ["Grohe", "Kohler", "Gessi", "Vitra", "Flos", "Cisco Meraki"],
+        "commercial_specialist": ["Yealink", "Poly", "Ubiquiti", "Epson", "Barco"]
+      },
+      "weights": {
+        "rarity": 0.15,
+        "quality": 0.25,
+        "value": 0.25,
+        "tco": 0.15,
+        "exclusivity": 0.10,
+        "compliance": 0.10
+      }
+    }
+  },
+  "brand_rarity": {
+    "Dyson": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.6 },
+    "ghd": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.5 },
+    "Valera": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.3 },
+    "Laurastar": { "global_presence": "low", "hotel_presence": "low", "boutique_coefficient": 0.9 },
+    "Smeg": { "global_presence": "high", "hotel_presence": "low", "boutique_coefficient": 0.7 },
+    "Miele": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.5 },
+    "Gaggenau": { "global_presence": "low", "hotel_presence": "low", "boutique_coefficient": 0.95 },
+    "Dometic": { "global_presence": "high", "hotel_presence": "high", "boutique_coefficient": 0.2 },
+    "Indel B": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.25 },
+    "Minibar Systems": { "global_presence": "low", "hotel_presence": "high", "boutique_coefficient": 0.3 },
+    "Bordogna": { "global_presence": "low", "hotel_presence": "high", "boutique_coefficient": 0.3 },
+    "Technomax": { "global_presence": "medium", "hotel_presence": "medium", "boutique_coefficient": 0.3 },
+    "Bang & Olufsen": { "global_presence": "medium", "hotel_presence": "low", "boutique_coefficient": 0.9 },
+    "Bowers & Wilkins": { "global_presence": "medium", "hotel_presence": "low", "boutique_coefficient": 0.8 },
+    "Genelec": { "global_presence": "low", "hotel_presence": "low", "boutique_coefficient": 0.85 },
+    "Sonos": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.5 },
+    "KEF": { "global_presence": "medium", "hotel_presence": "low", "boutique_coefficient": 0.75 },
+    "Samsung Hospitality": { "global_presence": "high", "hotel_presence": "high", "boutique_coefficient": 0.1 },
+    "LG Pro:Centric": { "global_presence": "high", "hotel_presence": "high", "boutique_coefficient": 0.1 },
+    "Philips MediaSuite": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.25 },
+    "Sony BRAVIA Professional": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.3 },
+    "Aesop": { "global_presence": "medium", "hotel_presence": "medium", "boutique_coefficient": 0.85 },
+    "Le Labo": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.8 },
+    "Diptyque": { "global_presence": "medium", "hotel_presence": "low", "boutique_coefficient": 0.9 },
+    "Bamford": { "global_presence": "low", "hotel_presence": "medium", "boutique_coefficient": 0.85 },
+    "Grown Alchemist": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.75 },
+    "Malin+Goetz": { "global_presence": "medium", "hotel_presence": "medium", "boutique_coefficient": 0.8 },
+    "Miller Harris": { "global_presence": "low", "hotel_presence": "low", "boutique_coefficient": 0.9 },
+    "Frette": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.6 },
+    "Sferra": { "global_presence": "low", "hotel_presence": "medium", "boutique_coefficient": 0.75 },
+    "Christy": { "global_presence": "medium", "hotel_presence": "medium", "boutique_coefficient": 0.5 },
+    "Yves Delorme": { "global_presence": "medium", "hotel_presence": "medium", "boutique_coefficient": 0.7 },
+    "Rational": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.4 },
+    "Miele Professional": { "global_presence": "high", "hotel_presence": "high", "boutique_coefficient": 0.3 },
+    "Winterhalter": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.3 },
+    "Electrolux Professional": { "global_presence": "high", "hotel_presence": "high", "boutique_coefficient": 0.2 },
+    "Hobart": { "global_presence": "high", "hotel_presence": "high", "boutique_coefficient": 0.2 },
+    "Meiko": { "global_presence": "medium", "hotel_presence": "high", "boutique_coefficient": 0.25 },
+    "Axor": { "global_presence": "medium", "hotel_presence": "low", "boutique_coefficient": 0.75 },
+    "Dornbracht": { "global_presence": "medium", "hotel_presence": "low", "boutique_coefficient": 0.85 },
+    "Hansgrohe": { "global_presence": "high", "hotel_presence": "medium", "boutique_coefficient": 0.4 },
+    "Vola": { "global_presence": "low", "hotel_presence": "low", "boutique_coefficient": 0.9 }
+  },
+  "spec_priority_map": {
+    "hairdryer": ["power_w", "noise_db", "weight_g", "ionic", "cool_shot", "cord_length_m"],
+    "minibar": ["capacity_l", "noise_db", "energy_class", "door_hinge", "lockable", "climate_class"],
+    "safe": ["volume_l", "lock_type", "bolt_count", "fire_rating", "floor_mount"],
+    "kettle": ["capacity_l", "wattage", "material", "auto_shutoff", "cordless", "temperature_settings"],
+    "iron": ["steam_output", "soleplate", "auto_shutoff", "water_tank_ml", "weight_g"],
+    "speaker": ["connectivity", "frequency_response", "amplifier_w", "room_size", "mounting"],
+    "television": ["size_inches", "resolution", "hospitality_os", "hdmi_ports", "energy_class", "installation"],
+    "dispenser": ["capacity_ml", "material", "refill_type", "locking", "brand_match"],
+    "towel": ["gsm", "material", "size_cm", "colour_fastness", "certifications"],
+    "toiletries": ["volume_ml", "fragrance_profile", "vegan", "sustainability", "refillable"]
+  }
+}
