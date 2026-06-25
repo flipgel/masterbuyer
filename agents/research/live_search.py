@@ -8,6 +8,7 @@ Two complementary sources per query:
    Sites that block scraping (Cloudflare, etc.) are simply skipped, not fatal.
 """
 import hashlib
+import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
@@ -17,7 +18,9 @@ from agents.base import BaseAgent
 from core.data_loader import get_all_known_brands, load_suppliers
 from core.models import Product, ResearchRequest, Supplier
 from scraping.extractors import extract_manufacturer_specs
-from scraping.serper import OrganicResult, ShoppingResult, search_organic, search_shopping
+from scraping.serper import OrganicResult, SerperConfigError, ShoppingResult, search_organic, search_shopping
+
+logger = logging.getLogger(__name__)
 
 MAX_SUPPLIERS = 6
 SHOPPING_RESULTS = 10
@@ -147,7 +150,10 @@ class LiveSearchAgent(BaseAgent):
 
         try:
             shopping_hits = search_shopping(f"{base_query} hotel", num=SHOPPING_RESULTS)
+        except SerperConfigError:
+            raise
         except Exception:
+            logger.warning("Serper shopping search failed for %r", base_query, exc_info=True)
             shopping_hits = []
         for hit in shopping_hits:
             product = self._product_from_shopping(hit, category, subcategory)
@@ -165,7 +171,10 @@ class LiveSearchAgent(BaseAgent):
             for fut in as_completed(futures):
                 try:
                     organic_results.extend(fut.result())
+                except SerperConfigError:
+                    raise
                 except Exception:
+                    logger.warning("Serper organic search failed for a supplier", exc_info=True)
                     continue
 
         with ThreadPoolExecutor(max_workers=6) as pool:

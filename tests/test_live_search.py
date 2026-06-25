@@ -5,7 +5,7 @@ import pytest
 
 from agents.research.live_search import LiveSearchAgent
 from scraping.client import FetchResult
-from scraping.serper import OrganicResult, ShoppingResult
+from scraping.serper import OrganicResult, SerperConfigError, ShoppingResult
 
 
 def _fetch_result(url, text, status_code=200):
@@ -123,6 +123,22 @@ def test_find_products_skips_blog_and_guide_pages(mocker):
     assert len(products) == 1
     assert products[0].name == "Dyson Kettle Pro"
     assert products[0].list_price_eur == 89.0
+
+
+def test_find_products_propagates_serper_config_error(mocker):
+    """A misconfigured/missing API key must surface as an actionable error, not silently
+    become "no results" — find_products previously swallowed SerperConfigError along with
+    every other exception, which made a broken deployment indistinguishable from a search
+    that genuinely found nothing."""
+    mocker.patch(
+        "agents.research.live_search.search_shopping",
+        side_effect=SerperConfigError("SERPER_API_KEY is not set"),
+    )
+    mocker.patch("agents.research.live_search.search_organic", return_value=[])
+
+    agent = LiveSearchAgent()
+    with pytest.raises(SerperConfigError):
+        agent.find_products("kettle", "appliances", "kettle")
 
 
 def test_find_products_dedupes_shopping_and_organic_by_url(mocker):
