@@ -108,6 +108,7 @@ class ResearchRequest:
     category: str
     quantity: int = 1
     budget_per_unit_eur: Optional[float] = None
+    query: str = ""
     design_brief: str = ""
     must_have: List[str] = field(default_factory=list)
     nice_to_have: List[str] = field(default_factory=list)

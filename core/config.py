@@ -2,9 +2,31 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
+
 DATA_DIR = PROJECT_ROOT / "data"
 CACHE_PATH = PROJECT_ROOT / "cache.db"
+
+
+def _get_secret(name: str, default: str = "") -> str:
+    """Read a secret from the environment (.env locally) or st.secrets (Streamlit Cloud)."""
+    value = os.environ.get(name)
+    if value:
+        return value
+    try:
+        import streamlit as st
+
+        return st.secrets.get(name, default)
+    except Exception:
+        return default
+
+
+# Serper.dev (Google Search API) key for live product discovery.
+# Get one at https://serper.dev — set in .env locally, or as a Streamlit Cloud secret.
+SERPER_API_KEY = _get_secret("SERPER_API_KEY")
 
 # User-agent rotation for polite scraping
 USER_AGENTS = [

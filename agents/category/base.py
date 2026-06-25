@@ -1,5 +1,5 @@
 """Base category specialist with shared enrichment logic."""
-from typing import Any, Dict, List
+from typing import List
 
 from agents.analysis.compliance import ComplianceAgent
 from agents.analysis.exclusivity import ExclusivityAgent
@@ -7,9 +7,10 @@ from agents.analysis.quality_price import QualityPriceAgent
 from agents.analysis.supplier_cross_check import SupplierCrossCheckAgent
 from agents.analysis.tco import TCOAgent
 from agents.base import BaseAgent
+from agents.research.live_search import LiveSearchAgent
 from agents.research.review_sentiment import ReviewSentimentAgent
-from core.data_loader import load_category_taxonomy, load_sample_products
-from core.models import Product, ResearchRequest, ReviewSignals, Supplier
+from core.data_loader import load_category_taxonomy
+from core.models import Product, ResearchRequest
 
 
 class CategoryAgent(BaseAgent):
@@ -20,7 +21,7 @@ class CategoryAgent(BaseAgent):
     def __init__(self, client=None):
         super().__init__(client)
         self.taxonomy = load_category_taxonomy()
-        self.all_products = load_sample_products()
+        self.live_search_agent = LiveSearchAgent(client)
         self.exclusivity_agent = ExclusivityAgent(client)
         self.quality_agent = QualityPriceAgent(client)
         self.tco_agent = TCOAgent(client)
@@ -35,38 +36,6 @@ class CategoryAgent(BaseAgent):
             if brand in brands:
                 return tier
         return "unknown"
-
-    def _dict_to_product(self, data: Dict[str, Any]) -> Product:
-        review = ReviewSignals(**data.get("review_signals", {}))
-        supplier_data = data.get("supplier")
-        supplier = None
-        if supplier_data:
-            supplier = Supplier(**supplier_data)
-        else:
-            # Try to attach a supplier from the index
-            suppliers = self.supplier_agent.find_suppliers_for_brand(data["brand"])
-            if suppliers:
-                supplier = suppliers[0]
-
-        return Product(
-            id=data["id"],
-            name=data["name"],
-            brand=data["brand"],
-            category=data["category"],
-            subcategory=data["subcategory"],
-            specs=data.get("specs", {}),
-            list_price_eur=data.get("list_price_eur"),
-            estimated_price_eur=data.get("estimated_price_eur"),
-            supplier=supplier,
-            source_url=data.get("source_url"),
-            availability_weeks=data.get("availability_weeks"),
-            warranty_years=data.get("warranty_years"),
-            certifications=data.get("certifications", []),
-            hotel_usage=data.get("hotel_usage", []),
-            review_signals=review,
-            pros=data.get("pros", []),
-            cons=data.get("cons", []),
-        )
 
     def enrich_product(self, product: Product) -> Product:
         """Run all analysis agents on a product and populate scores."""
@@ -96,17 +65,17 @@ class CategoryAgent(BaseAgent):
 
         return product
 
-    def get_products(self, requested_category: str | None = None) -> List[Product]:
-        """Load seed products for this category.
+    def get_products(self, request: ResearchRequest) -> List[Product]:
+        """Live-search for products in this category.
 
-        If requested_category looks like a subcategory (e.g. 'faucet' under general),
-        filter by subcategory as well.
+        `request.category` may be a subcategory (e.g. 'faucet' under general); it's
+        passed through as the subcategory hint for search query building.
         """
-        items = [p for p in self.all_products if p["category"] == self.category_key]
-        if requested_category and requested_category != self.category_key:
-            items = [p for p in items if p["subcategory"] == requested_category]
-        return [self._dict_to_product(p) for p in items]
+        query = request.query or request.design_brief or request.category
+        return self.live_search_agent.find_products(
+            query=query, category=self.category_key, subcategory=request.category
+        )
 
     def run(self, request: ResearchRequest) -> List[Product]:
-        products = self.get_products(request.category)
+        products = self.get_products(request)
         return [self.enrich_product(p) for p in products]

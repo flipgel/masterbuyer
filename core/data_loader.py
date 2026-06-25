@@ -26,10 +26,6 @@ def load_suppliers() -> List[Dict[str, Any]]:
     return _load_json("supplier_index.json").get("suppliers", [])
 
 
-def load_sample_products() -> List[Dict[str, Any]]:
-    return _load_json("sample_products.json").get("products", [])
-
-
 def get_category_weights(category: str) -> Dict[str, float]:
     taxonomy = load_category_taxonomy()
     cats = taxonomy.get("categories", {})
@@ -41,3 +37,17 @@ def get_category_weights(category: str) -> Dict[str, float]:
 def get_brand_rarity(brand: str) -> Dict[str, Any]:
     taxonomy = load_category_taxonomy()
     return taxonomy.get("brand_rarity", {}).get(brand, {})
+
+
+def get_all_known_brands() -> List[str]:
+    """All curated brand names across every category's brand_tiers, longest first.
+
+    Useful for spotting a known manufacturer brand inside a live search result's
+    title (longest-first avoids e.g. matching "Le Labo" before "Le Labo Hospitality").
+    """
+    taxonomy = load_category_taxonomy()
+    brands = set()
+    for cat in taxonomy.get("categories", {}).values():
+        for tier_brands in cat.get("brand_tiers", {}).values():
+            brands.update(tier_brands)
+    return sorted(brands, key=len, reverse=True)

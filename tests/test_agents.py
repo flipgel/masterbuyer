@@ -10,7 +10,18 @@ from agents.orchestrator import OrchestratorAgent
 from core.models import Product, ResearchRequest, ReviewSignals
 
 
-def test_orchestrator_hairdryer():
+def _fake_products(category, subcategory):
+    return [
+        Product(id="1", name="Test Hairdryer", brand="Dyson", category=category, subcategory=subcategory, list_price_eur=300),
+        Product(id="2", name="Test Hairdryer 2", brand="ghd", category=category, subcategory=subcategory, list_price_eur=150),
+    ]
+
+
+def test_orchestrator_hairdryer(mocker):
+    mocker.patch(
+        "agents.research.live_search.LiveSearchAgent.find_products",
+        side_effect=lambda query, category, subcategory=None: _fake_products(category, subcategory),
+    )
     agent = OrchestratorAgent()
     result = agent.run(ResearchRequest(category="hairdryer", quantity=80))
     assert len(result.products) > 0
@@ -18,7 +29,11 @@ def test_orchestrator_hairdryer():
     assert result.top_product is not None
 
 
-def test_orchestrator_bathroom():
+def test_orchestrator_bathroom(mocker):
+    mocker.patch(
+        "agents.research.live_search.LiveSearchAgent.find_products",
+        side_effect=lambda query, category, subcategory=None: _fake_products(category, subcategory),
+    )
     agent = OrchestratorAgent()
     result = agent.run(ResearchRequest(category="towel", quantity=200))
     assert len(result.products) > 0

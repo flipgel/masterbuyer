@@ -10,6 +10,7 @@ from core.models import (
     ResearchRequest,
     ResearchResult,
 )
+from scraping.serper import SerperConfigError
 from ui.dashboard import render_dashboard
 from ui.product_card import render_product_card
 from ui.reports import generate_csv, generate_pdf
@@ -87,12 +88,15 @@ def init_session_state() -> None:
 
 
 @st.cache_data(ttl=3600)
-def run_research(category: str, quantity: int, budget: float | None, design_brief: str, must_have: str) -> ResearchResult:
-    """Run research and return a ResearchResult object (cached via pickle)."""
+def run_research(
+    category: str, quantity: int, budget: float | None, query: str, design_brief: str, must_have: str
+) -> ResearchResult:
+    """Run live research and return a ResearchResult object (cached via pickle)."""
     request = ResearchRequest(
         category=category,
         quantity=quantity,
         budget_per_unit_eur=budget if budget > 0 else None,
+        query=query,
         design_brief=design_brief,
         must_have=[x.strip() for x in must_have.split(",") if x.strip()],
     )
@@ -125,6 +129,10 @@ def render_sidebar() -> None:
         profile.local_service_required = st.checkbox("Require local EU service network", value=profile.local_service_required)
 
         st.header("New Research Request")
+        query = st.text_input(
+            "What are you looking for?",
+            placeholder="e.g. luxury minibar fridge, brass bathroom faucet, hairdryer...",
+        )
         category = st.selectbox(
             "Category",
             [
@@ -146,10 +154,18 @@ def render_sidebar() -> None:
         run_button = st.button("Run Research", type="primary", use_container_width=True)
 
         if run_button:
-            with st.spinner("Running multi-agent research..."):
-                result = run_research(category, quantity, budget, design_brief, must_have)
-                st.session_state.last_result = result
-                st.success(f"Found {len(result.products)} products")
+            with st.spinner("Searching live supplier sites and the web..."):
+                try:
+                    result = run_research(category, quantity, budget, query, design_brief, must_have)
+                except SerperConfigError as e:
+                    st.error(str(e))
+                    result = None
+                if result is not None:
+                    st.session_state.last_result = result
+                    if result.products:
+                        st.success(f"Found {len(result.products)} live products")
+                    else:
+                        st.warning("No live results found for this search — try a broader query or different category.")
 
         if st.session_state.last_result:
             st.divider()
@@ -186,7 +202,7 @@ def render_sidebar() -> None:
 
 def render_main() -> None:
     st.title("Hotel Procurement Research Tool")
-    st.caption("No paid APIs · Multi-agent · Luxury 5-star focus · Europe")
+    st.caption("Live product search · Multi-agent analysis · Luxury 5-star focus · Europe")
 
     if not st.session_state.last_result:
         st.info("Set up your hotel profile and run a research request from the sidebar to begin.")
@@ -280,19 +296,22 @@ def render_main() -> None:
             - **TCO:** 10-year total cost of ownership (price + energy + maintenance + replacement)
             - **Compliance:** CE marking, energy labels, warranty adequacy
 
-            Weights are tuned per category. No paid APIs are used by default; all agents run locally
-            using curated datasets, heuristics, and polite web scraping.
+            Weights are tuned per category. Products are found live for every search — there is
+            no static product catalog.
 
             **Data sources**
+            - Live product search via the Serper.dev Google Search API (organic + Shopping results)
             - Curated hotel brand standards (`data/hotel_brands.json`)
-            - Curated European hospitality supplier index (`data/supplier_index.json`)
-            - Seed product database (`data/sample_products.json`)
-            - Public manufacturer websites (cached, rate-limited)
+            - Curated European hospitality supplier index (`data/supplier_index.json`), used to
+              scope and prioritise which supplier sites are searched
+            - Manufacturer/supplier pages fetched live and parsed for specs (cached, rate-limited)
 
             **Limitations**
-            - Prices are estimates or list prices; actual quotes require supplier negotiation.
-            - Live scraping depends on website availability and robots policies.
-            - Scores reflect our curated model; weights can be adjusted in the taxonomy file.
+            - Prices come from Google Shopping when available; many B2B/hospitality sites don't
+              publish public prices at all (quote-on-request) — those show as "Price on request."
+            - Some supplier sites block automated requests (e.g. Cloudflare) and won't appear even
+              if they're a good fit — coverage depends on what's reachable at search time.
+            - Scores reflect our curated weighting model; weights can be adjusted in the taxonomy file.
             """
         )
 
