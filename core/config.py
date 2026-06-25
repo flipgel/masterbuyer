@@ -11,8 +11,14 @@ DATA_DIR = PROJECT_ROOT / "data"
 CACHE_PATH = PROJECT_ROOT / "cache.db"
 
 
-def _get_secret(name: str, default: str = "") -> str:
-    """Read a secret from the environment (.env locally) or st.secrets (Streamlit Cloud)."""
+def get_secret(name: str, default: str = "") -> str:
+    """Read a secret from the environment (.env locally) or st.secrets (Streamlit Cloud).
+
+    Read fresh on every call, not cached into a module-level constant at import time —
+    a constant computed once would freeze in whatever value was available the first time
+    this module happened to be imported, with no way to recover except a full process
+    restart if that first read raced ahead of secrets being ready.
+    """
     value = os.environ.get(name)
     if value:
         return value
@@ -26,7 +32,8 @@ def _get_secret(name: str, default: str = "") -> str:
 
 # Serper.dev (Google Search API) key for live product discovery.
 # Get one at https://serper.dev — set in .env locally, or as a Streamlit Cloud secret.
-SERPER_API_KEY = _get_secret("SERPER_API_KEY")
+# NOTE: don't read this into a module-level constant — call get_secret("SERPER_API_KEY")
+# at the point of use instead (see scraping/serper.py).
 
 # User-agent rotation for polite scraping
 USER_AGENTS = [

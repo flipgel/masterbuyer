@@ -105,9 +105,12 @@ class OrchestratorAgent(BaseAgent):
                 self.negotiation_agent.generate(product, alternatives=ranked[:5])
             )
 
+        diagnostics = dict(getattr(specialist.live_search_agent, "last_diagnostics", {}))
+
         return ResearchResult(
             request=request,
             products=ranked,
             hotel_benchmarks=benchmarks,
             negotiation_briefs=briefs,
+            diagnostics=diagnostics,
         )

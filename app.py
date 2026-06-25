@@ -3,6 +3,7 @@ import streamlit as st
 
 from agents.orchestrator import OrchestratorAgent
 from core.cache import cache
+from core.config import get_secret
 from core.models import HotelProfile, ResearchRequest, ResearchResult
 from core.query_intent import infer_category
 from core.scoring import score_to_grade
@@ -116,6 +117,11 @@ def render_landing() -> None:
         unsafe_allow_html=True,
     )
     render_search_bar()
+    if not get_secret("SERPER_API_KEY"):
+        st.error(
+            "SERPER_API_KEY is not configured — live search will not work until it's "
+            "set (Streamlit Cloud: Settings → Secrets)."
+        )
 
 
 def render_result_row(product, rank: int, hotel_name: str) -> None:
@@ -139,14 +145,23 @@ def render_result_row(product, rank: int, hotel_name: str) -> None:
             render_product_card(product, rank=rank)
 
 
+def render_diagnostics(diag: dict) -> None:
+    if not diag:
+        return
+    with st.expander("🩺 Search diagnostics", expanded=not st.session_state.last_result.products):
+        st.json(diag)
+
+
 def render_results() -> None:
     result = st.session_state.last_result
     if not result.products:
         st.warning("No live results found for this search — try a broader query.")
+        render_diagnostics(result.diagnostics)
         return
 
     hotel_name = st.session_state.hotel_profile.name or "Our Hotel Project"
     st.caption(f"Found {len(result.products)} live results, ranked by overall fit for a luxury hotel.")
+    render_diagnostics(result.diagnostics)
     for i, product in enumerate(result.products, 1):
         render_result_row(product, i, hotel_name)
 

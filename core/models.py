@@ -124,6 +124,7 @@ class ResearchResult:
     hotel_benchmarks: List[HotelBenchmark] = field(default_factory=list)
     negotiation_briefs: List[NegotiationBrief] = field(default_factory=list)
     generated_at: datetime = field(default_factory=datetime.now)
+    diagnostics: Dict[str, Any] = field(default_factory=dict)
 
     @property
     def top_product(self) -> Optional[Product]:

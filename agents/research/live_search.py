@@ -51,6 +51,7 @@ class LiveSearchAgent(BaseAgent):
         self.suppliers = load_suppliers()
         self.supplier_cross_check = SupplierCrossCheckAgent(self.client)
         self.known_brands = get_all_known_brands()
+        self.last_diagnostics: Dict[str, Any] = {}
 
     def _matching_suppliers(self, category: str, subcategory: str) -> List[Dict[str, Any]]:
         matches = [
@@ -146,6 +147,17 @@ class LiveSearchAgent(BaseAgent):
         base_query = f"{query} {subcategory}".strip()
         suppliers = self._matching_suppliers(category, subcategory)
 
+        diag: Dict[str, Any] = {
+            "base_query": base_query,
+            "suppliers_matched": len(suppliers),
+            "shopping_raw_hits": 0,
+            "shopping_products": 0,
+            "organic_raw_results": 0,
+            "organic_products": 0,
+            "errors": [],
+        }
+        self.last_diagnostics = diag
+
         products: Dict[str, Product] = {}
         attempted = 0
         failed = 0
@@ -155,16 +167,20 @@ class LiveSearchAgent(BaseAgent):
         try:
             shopping_hits = search_shopping(f"{base_query} hotel", num=SHOPPING_RESULTS)
         except SerperConfigError:
+            diag["errors"].append("SERPER_API_KEY not configured")
             raise
         except Exception as e:
             logger.warning("Serper shopping search failed for %r", base_query, exc_info=True)
             shopping_hits = []
             failed += 1
             last_error = e
+            diag["errors"].append(f"shopping search: {e}")
+        diag["shopping_raw_hits"] = len(shopping_hits)
         for hit in shopping_hits:
             product = self._product_from_shopping(hit, category, subcategory)
             if product:
                 products[product.source_url] = product
+        diag["shopping_products"] = len(products)
 
         organic_results: List[OrganicResult] = []
         with ThreadPoolExecutor(max_workers=6) as pool:
@@ -179,12 +195,17 @@ class LiveSearchAgent(BaseAgent):
                 try:
                     organic_results.extend(fut.result())
                 except SerperConfigError:
+                    diag["errors"].append("SERPER_API_KEY not configured")
                     raise
                 except Exception as e:
                     logger.warning("Serper organic search failed for a supplier", exc_info=True)
                     failed += 1
                     last_error = e
+                    diag["errors"].append(f"organic search: {e}")
                     continue
+        diag["organic_raw_results"] = len(organic_results)
+        diag["search_calls_attempted"] = attempted
+        diag["search_calls_failed"] = failed
 
         # If every single search call failed, this is a systemic problem (network egress
         # blocked, Serper down/rate-limited, etc.) — surface it instead of silently
@@ -202,6 +223,8 @@ class LiveSearchAgent(BaseAgent):
                 product = fut.result()
                 if product is not None and product.source_url not in products:
                     products[product.source_url] = product
+        diag["organic_products"] = len(products) - diag["shopping_products"]
+        diag["total_products"] = len(products)
 
         return list(products.values())
 

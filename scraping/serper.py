@@ -13,7 +13,7 @@ from typing import List, Optional
 import requests
 
 from core.cache import cache
-from core.config import CACHE_TTL_SHORT_SECONDS, SERPER_API_KEY
+from core.config import CACHE_TTL_SHORT_SECONDS, get_secret
 
 SERPER_BASE_URL = "https://google.serper.dev"
 
@@ -40,12 +40,13 @@ class ShoppingResult:
 
 
 def _require_api_key() -> str:
-    if not SERPER_API_KEY:
+    api_key = get_secret("SERPER_API_KEY")
+    if not api_key:
         raise SerperConfigError(
             "SERPER_API_KEY is not set. Get a free key at https://serper.dev and "
             "add it to a .env file (see .env.example) or export it as an environment variable."
         )
-    return SERPER_API_KEY
+    return api_key
 
 
 def _parse_price(text: Optional[str]) -> Optional[float]:

@@ -125,6 +125,31 @@ def test_find_products_skips_blog_and_guide_pages(mocker):
     assert products[0].list_price_eur == 89.0
 
 
+def test_find_products_populates_diagnostics(mocker):
+    mocker.patch(
+        "agents.research.live_search.search_shopping",
+        return_value=[
+            ShoppingResult(
+                title="Dometic MiniCool Hotel Fridge",
+                link="https://www.dometic.com/en-us/product/minicool",
+                source="Dometic",
+                price_eur=312.0,
+            )
+        ],
+    )
+    mocker.patch("agents.research.live_search.search_organic", return_value=[])
+
+    agent = LiveSearchAgent()
+    agent.find_products("minibar fridge", "appliances", "minibar")
+
+    diag = agent.last_diagnostics
+    assert diag["shopping_raw_hits"] == 1
+    assert diag["shopping_products"] == 1
+    assert diag["total_products"] == 1
+    assert diag["errors"] == []
+    assert diag["suppliers_matched"] > 0
+
+
 def test_find_products_raises_when_every_search_fails(mocker):
     """If every Serper call fails (network egress blocked, rate-limited, etc.), that's a
     systemic problem and must be surfaced, not silently reported as "no results found" —
