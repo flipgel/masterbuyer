@@ -91,6 +91,40 @@ def test_find_products_skips_unfetchable_organic_pages(mocker):
     assert products == []
 
 
+def test_find_products_skips_blog_and_guide_pages(mocker):
+    mocker.patch("agents.research.live_search.search_shopping", return_value=[])
+    mocker.patch(
+        "agents.research.live_search.search_organic",
+        return_value=[
+            OrganicResult(
+                title="10 practical housewarming gifts for every new homeowner",
+                link="https://www.dyson.co.uk/blog/gift-guide",
+                snippet="",
+            ),
+            OrganicResult(
+                title="Dyson Kettle Pro",
+                link="https://www.dyson.co.uk/kettles/dyson-kettle-pro",
+                snippet="",
+            ),
+        ],
+    )
+    agent = LiveSearchAgent()
+    mocker.patch.object(
+        agent.client,
+        "get",
+        return_value=_fetch_result(
+            "https://www.dyson.co.uk/kettles/dyson-kettle-pro",
+            "<html><body><h1>Dyson Kettle Pro</h1><p>EUR 89.00</p></body></html>",
+        ),
+    )
+
+    products = agent.find_products("kettle", "appliances", "kettle")
+
+    assert len(products) == 1
+    assert products[0].name == "Dyson Kettle Pro"
+    assert products[0].list_price_eur == 89.0
+
+
 def test_find_products_dedupes_shopping_and_organic_by_url(mocker):
     shared_url = "https://www.dometic.com/en-us/product/minicool"
     mocker.patch(

@@ -22,6 +22,20 @@ from scraping.serper import OrganicResult, ShoppingResult, search_organic, searc
 MAX_SUPPLIERS = 6
 SHOPPING_RESULTS = 10
 ORGANIC_RESULTS_PER_SUPPLIER = 3
+MIN_PLAUSIBLE_PRICE_EUR = 5.0
+
+# Organic site search surfaces any page mentioning the query, including blog posts and
+# buying guides — these have no real price and would otherwise pick up a stray number
+# from the article body as a fake "price". Filter them out by URL/title signal.
+NON_PRODUCT_SIGNALS = (
+    "/blog/", "/news/", "/guide", "/guides/", "/article", "/press/",
+    "how to ", "tips", "gift", "gifts", "ways to", "buying guide", "review of",
+)
+
+
+def _looks_like_non_product_page(url: str, title: str) -> bool:
+    haystack = f"{url} {title}".lower()
+    return any(signal in haystack for signal in NON_PRODUCT_SIGNALS)
 
 
 class LiveSearchAgent(BaseAgent):
@@ -91,6 +105,9 @@ class LiveSearchAgent(BaseAgent):
     def _product_from_organic(
         self, result: OrganicResult, category: str, subcategory: str
     ) -> Optional[Product]:
+        if _looks_like_non_product_page(result.link, result.title):
+            return None
+
         try:
             page = self.client.get(result.link)
         except Exception:
@@ -100,11 +117,11 @@ class LiveSearchAgent(BaseAgent):
 
         extracted = extract_manufacturer_specs(page)
         name = extracted.get("name") or result.title
-        if not name:
+        if not name or _looks_like_non_product_page(result.link, name):
             return None
 
         supplier_dict = self._match_supplier_for_url(result.link)
-        prices = extracted.get("price_candidates", [])
+        prices = [p for p in extracted.get("price_candidates", []) if p >= MIN_PLAUSIBLE_PRICE_EUR]
         supplier_name = supplier_dict["name"] if supplier_dict else ""
 
         return Product(
