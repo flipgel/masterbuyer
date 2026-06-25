@@ -219,8 +219,8 @@ def main() -> None:
     else:
         st.markdown("<h2 style='text-align:left;'>masterbuyer</h2>", unsafe_allow_html=True)
         render_search_bar()
-        render_results()
         render_advanced_panel()
+        render_results()
 
 
 if __name__ == "__main__":
