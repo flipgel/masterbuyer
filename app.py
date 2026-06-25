@@ -11,6 +11,7 @@ from scraping.serper import SerperConfigError
 from ui.dashboard import render_dashboard
 from ui.images import render_product_image
 from ui.inquiry import build_mailto_link
+from ui.intro import render_intro
 from ui.mascot import render_mascot
 from ui.product_card import render_product_card
 from ui.reports import generate_csv, generate_pdf
@@ -262,6 +263,8 @@ def do_search(query: str, quantity: int = 50, budget: float | None = None, must_
             return
     st.session_state.last_result = result
     st.session_state.last_query = query
+    # Reset filters so they don't bleed into a new search's product set
+    st.session_state.pop("filter_initialised", None)
 
 
 def render_search_bar() -> None:
@@ -282,6 +285,7 @@ def render_search_bar() -> None:
 
 
 def render_landing() -> None:
+    render_intro()
     st.markdown("<div style='height:clamp(16px,5vh,10vh)'></div>", unsafe_allow_html=True)
     st.markdown(
         """
@@ -336,11 +340,21 @@ def _grade_pill(score: float) -> str:
     )
 
 
+_IMG_PLACEHOLDER = (
+    "<div style='width:70px;height:70px;border-radius:6px;background:#F0EDE8;"
+    "display:flex;align-items:center;justify-content:center;"
+    "font-size:28px;color:#C8C4BC;'>📦</div>"
+)
+
+
 def render_result_row(product, rank: int, hotel_name: str) -> None:
     with st.container(border=True):
         cols = st.columns([1, 4, 2, 1, 2])
         with cols[0]:
-            render_product_image(product.image_url, width=80)
+            if product.image_url:
+                render_product_image(product.image_url, width=80)
+            else:
+                st.markdown(_IMG_PLACEHOLDER, unsafe_allow_html=True)
         with cols[1]:
             badge = _rank_badge(rank)
             name = f"[{product.brand} — {product.name}]({product.source_url})" if product.source_url else f"{product.brand} — {product.name}"
@@ -371,34 +385,64 @@ def render_diagnostics(diag: dict) -> None:
         st.json(diag)
 
 
+def _init_filter_state(products: list) -> None:
+    """Set filter defaults once per search (not on every rerun)."""
+    if "filter_initialised" not in st.session_state:
+        prices = [p.effective_price for p in products if p.effective_price is not None]
+        st.session_state.filter_initialised = True
+        st.session_state.f_brand = []
+        st.session_state.f_min_score = 0
+        st.session_state.f_max_price = round((max(prices) * 1.1) if prices else 1000.0, 2)
+        st.session_state.f_sort_by = "overall_score"
+
+
+SORT_OPTIONS = ["overall_score", "quality_score", "value_score", "exclusivity_score", "tco_score"]
+
+
 def render_filters(products: list) -> list:
-    """Compact filter bar above the results list. Returns the filtered+sorted list."""
-    prices = [p.effective_price for p in products if p.effective_price is not None]
-    default_max_price = (max(prices) * 1.1) if prices else 1000.0
+    """Filter bar with an explicit Apply button so selections actually commit."""
+    _init_filter_state(products)
 
-    cols = st.columns([2, 2, 2, 2])
-    with cols[0]:
-        brand_filter = st.multiselect(
-            "Brand", options=sorted({p.brand for p in products}), key="main_filter_brand"
-        )
-    with cols[1]:
-        min_score = st.slider("Min overall score", 0, 100, 0, key="main_filter_min_score")
-    with cols[2]:
-        max_price = st.number_input(
-            "Max price (EUR)", min_value=0.0, value=default_max_price, step=10.0, key="main_filter_max_price"
-        )
-    with cols[3]:
-        sort_by = st.selectbox(
-            "Sort by",
-            ["overall_score", "quality_score", "value_score", "exclusivity_score", "tco_score"],
-            key="main_filter_sort_by",
-        )
+    with st.form("filter_form"):
+        cols = st.columns([2, 2, 2, 2])
+        with cols[0]:
+            brand_sel = st.multiselect(
+                "Brand",
+                options=sorted({p.brand for p in products}),
+                default=st.session_state.f_brand,
+            )
+        with cols[1]:
+            score_sel = st.slider("Min score", 0, 100, value=st.session_state.f_min_score)
+        with cols[2]:
+            price_sel = st.number_input(
+                "Max price (EUR)",
+                min_value=0.0,
+                value=st.session_state.f_max_price,
+                step=10.0,
+            )
+        with cols[3]:
+            sort_sel = st.selectbox(
+                "Sort by",
+                SORT_OPTIONS,
+                index=SORT_OPTIONS.index(st.session_state.f_sort_by),
+            )
+        apply = st.form_submit_button("Apply filters", use_container_width=True, type="primary")
 
-    filtered = [p for p in products if p.overall_score >= min_score]
-    if brand_filter:
-        filtered = [p for p in filtered if p.brand in brand_filter]
-    filtered = [p for p in filtered if p.effective_price is None or p.effective_price <= max_price]
-    return sorted(filtered, key=lambda p: getattr(p, sort_by), reverse=True)
+    if apply:
+        st.session_state.f_brand = brand_sel
+        st.session_state.f_min_score = score_sel
+        st.session_state.f_max_price = price_sel
+        st.session_state.f_sort_by = sort_sel
+
+    # Always filter/sort by committed values in session_state
+    filtered = [p for p in products if p.overall_score >= st.session_state.f_min_score]
+    if st.session_state.f_brand:
+        filtered = [p for p in filtered if p.brand in st.session_state.f_brand]
+    filtered = [
+        p for p in filtered
+        if p.effective_price is None or p.effective_price <= st.session_state.f_max_price
+    ]
+    return sorted(filtered, key=lambda p: getattr(p, st.session_state.f_sort_by), reverse=True)
 
 
 def render_results() -> None:
