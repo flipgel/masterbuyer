@@ -3,7 +3,7 @@ import re
 from typing import Any, Dict, List, Optional
 
 from scraping.client import FetchResult
-from scraping.parsers import extract_price_candidates, extract_text, parse_html
+from scraping.parsers import extract_og_image, extract_price_candidates, extract_text, parse_html
 
 
 def _clean(text: str) -> str:
@@ -60,6 +60,7 @@ def extract_manufacturer_specs(result: FetchResult) -> Dict[str, Any]:
         "price_candidates": extract_price_candidates(text)[:5],
         "tables": [],
         "source_url": result.url,
+        "image_url": extract_og_image(result.text),
     }
     # Extract specification tables
     for table in soup.find_all("table"):

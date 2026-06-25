@@ -103,6 +103,7 @@ class LiveSearchAgent(BaseAgent):
             subcategory=subcategory,
             list_price_eur=hit.price_eur,
             source_url=hit.link,
+            image_url=hit.image_url,
             supplier=self._to_supplier_model(supplier_dict),
         )
 
@@ -137,6 +138,7 @@ class LiveSearchAgent(BaseAgent):
             specs=extracted.get("tables", [{}])[0] if extracted.get("tables") else {},
             list_price_eur=min(prices) if prices else None,
             source_url=result.link,
+            image_url=extracted.get("image_url"),
             supplier=self._to_supplier_model(supplier_dict),
         )
 

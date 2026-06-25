@@ -126,18 +126,24 @@ def render_landing() -> None:
 
 def render_result_row(product, rank: int, hotel_name: str) -> None:
     with st.container(border=True):
-        cols = st.columns([5, 2, 1, 2])
+        cols = st.columns([1, 4, 2, 1, 2])
         with cols[0]:
+            if product.image_url:
+                st.markdown(
+                    f"<img src='{product.image_url}' style='width:100%; border-radius:6px; object-fit:contain;'>",
+                    unsafe_allow_html=True,
+                )
+        with cols[1]:
             if product.source_url:
                 st.markdown(f"**#{rank} [{product.brand} {product.name}]({product.source_url})**")
             else:
                 st.markdown(f"**#{rank} {product.brand} {product.name}**")
             st.caption(product.subcategory.title())
-        with cols[1]:
-            st.markdown(f"**{product.display_price}**")
         with cols[2]:
-            st.markdown(f"**{product.overall_score:.0f}** {score_to_grade(product.overall_score)}")
+            st.markdown(f"**{product.display_price}**")
         with cols[3]:
+            st.markdown(f"**{product.overall_score:.0f}** {score_to_grade(product.overall_score)}")
+        with cols[4]:
             mailto = build_mailto_link(product, hotel_name)
             st.link_button("✉️ Inquiry email", mailto, use_container_width=True)
 

@@ -48,6 +48,16 @@ def extract_meta_description(html: str) -> Optional[str]:
     return None
 
 
+def extract_og_image(html: str) -> Optional[str]:
+    soup = parse_html(html)
+    meta = soup.find("meta", attrs={"property": "og:image"}) or soup.find(
+        "meta", attrs={"name": "twitter:image"}
+    )
+    if meta:
+        return meta.get("content", "").strip() or None
+    return None
+
+
 def extract_links(html: str, base_url: Optional[str] = None) -> List[str]:
     soup = parse_html(html)
     links = []

@@ -56,6 +56,7 @@ class Product:
     estimated_price_eur: Optional[float] = None
     supplier: Optional[Supplier] = None
     source_url: Optional[str] = None
+    image_url: Optional[str] = None
     availability_weeks: Optional[int] = None
     warranty_years: Optional[float] = None
     certifications: List[str] = field(default_factory=list)

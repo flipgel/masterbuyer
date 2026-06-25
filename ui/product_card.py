@@ -8,14 +8,23 @@ from core.scoring import score_to_grade
 def render_product_card(product: Product, rank: int = 1) -> None:
     """Render a detailed product card in Streamlit."""
     with st.container(border=True):
-        col1, col2 = st.columns([3, 1])
-        with col1:
+        if product.image_url:
+            img_col, info_col, score_col = st.columns([1, 3, 1])
+            with img_col:
+                st.markdown(
+                    f"<img src='{product.image_url}' style='width:100%; border-radius:8px; object-fit:contain;'>",
+                    unsafe_allow_html=True,
+                )
+        else:
+            info_col, score_col = st.columns([3, 1])
+
+        with info_col:
             if product.source_url:
                 st.subheader(f"#{rank} [{product.brand} {product.name}]({product.source_url})")
             else:
                 st.subheader(f"#{rank} {product.brand} {product.name}")
             st.caption(f"{product.subcategory.title()} · {product.display_price}")
-        with col2:
+        with score_col:
             st.metric("Overall Score", f"{product.overall_score:.0f}", score_to_grade(product.overall_score))
             if product.source_url:
                 st.link_button("Open official page ↗", product.source_url, use_container_width=True)
