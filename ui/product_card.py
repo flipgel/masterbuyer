@@ -3,6 +3,7 @@ import streamlit as st
 
 from core.models import Product
 from core.scoring import score_to_grade
+from ui.images import render_product_image
 
 
 def render_product_card(product: Product, rank: int = 1) -> None:
@@ -11,10 +12,7 @@ def render_product_card(product: Product, rank: int = 1) -> None:
         if product.image_url:
             img_col, info_col, score_col = st.columns([1, 3, 1])
             with img_col:
-                st.markdown(
-                    f"<img src='{product.image_url}' style='width:100%; border-radius:8px; object-fit:contain;'>",
-                    unsafe_allow_html=True,
-                )
+                render_product_image(product.image_url, width=160)
         else:
             info_col, score_col = st.columns([3, 1])
 

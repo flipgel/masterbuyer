@@ -9,6 +9,7 @@ from core.query_intent import infer_category
 from core.scoring import score_to_grade
 from scraping.serper import SerperConfigError
 from ui.dashboard import render_dashboard
+from ui.images import render_product_image
 from ui.inquiry import build_mailto_link
 from ui.mascot import render_mascot
 from ui.product_card import render_product_card
@@ -128,11 +129,7 @@ def render_result_row(product, rank: int, hotel_name: str) -> None:
     with st.container(border=True):
         cols = st.columns([1, 4, 2, 1, 2])
         with cols[0]:
-            if product.image_url:
-                st.markdown(
-                    f"<img src='{product.image_url}' style='width:100%; border-radius:6px; object-fit:contain;'>",
-                    unsafe_allow_html=True,
-                )
+            render_product_image(product.image_url, width=80)
         with cols[1]:
             if product.source_url:
                 st.markdown(f"**#{rank} [{product.brand} {product.name}]({product.source_url})**")
@@ -158,6 +155,36 @@ def render_diagnostics(diag: dict) -> None:
         st.json(diag)
 
 
+def render_filters(products: list) -> list:
+    """Compact filter bar above the results list. Returns the filtered+sorted list."""
+    prices = [p.effective_price for p in products if p.effective_price is not None]
+    default_max_price = (max(prices) * 1.1) if prices else 1000.0
+
+    cols = st.columns([2, 2, 2, 2])
+    with cols[0]:
+        brand_filter = st.multiselect(
+            "Brand", options=sorted({p.brand for p in products}), key="main_filter_brand"
+        )
+    with cols[1]:
+        min_score = st.slider("Min overall score", 0, 100, 0, key="main_filter_min_score")
+    with cols[2]:
+        max_price = st.number_input(
+            "Max price (EUR)", min_value=0.0, value=default_max_price, step=10.0, key="main_filter_max_price"
+        )
+    with cols[3]:
+        sort_by = st.selectbox(
+            "Sort by",
+            ["overall_score", "quality_score", "value_score", "exclusivity_score", "tco_score"],
+            key="main_filter_sort_by",
+        )
+
+    filtered = [p for p in products if p.overall_score >= min_score]
+    if brand_filter:
+        filtered = [p for p in filtered if p.brand in brand_filter]
+    filtered = [p for p in filtered if p.effective_price is None or p.effective_price <= max_price]
+    return sorted(filtered, key=lambda p: getattr(p, sort_by), reverse=True)
+
+
 def render_results() -> None:
     result = st.session_state.last_result
     if not result.products:
@@ -166,9 +193,10 @@ def render_results() -> None:
         return
 
     hotel_name = st.session_state.hotel_profile.name or "Our Hotel Project"
-    st.caption(f"Found {len(result.products)} live results, ranked by overall fit for a luxury hotel.")
     render_diagnostics(result.diagnostics)
-    for i, product in enumerate(result.products, 1):
+    filtered = render_filters(result.products)
+    st.caption(f"Showing {len(filtered)} of {len(result.products)} live results, ranked by overall fit for a luxury hotel.")
+    for i, product in enumerate(filtered, 1):
         render_result_row(product, i, hotel_name)
 
 
