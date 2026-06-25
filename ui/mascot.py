@@ -232,7 +232,7 @@ _MASCOT_HTML = """
   }
 
   function scheduleNext() {
-    const delay = 6000 + Math.random() * 6000;  // 6–12 s
+    const delay = 165000 + Math.random() * 30000;  // 2.75–3.25 min
     nextTimer = setTimeout(() => { show(); scheduleNext(); }, delay);
   }
 
