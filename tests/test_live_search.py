@@ -125,6 +125,24 @@ def test_find_products_skips_blog_and_guide_pages(mocker):
     assert products[0].list_price_eur == 89.0
 
 
+def test_find_products_raises_when_every_search_fails(mocker):
+    """If every Serper call fails (network egress blocked, rate-limited, etc.), that's a
+    systemic problem and must be surfaced, not silently reported as "no results found" —
+    those two situations look identical to the user otherwise."""
+    mocker.patch(
+        "agents.research.live_search.search_shopping",
+        side_effect=ConnectionError("could not reach serper.dev"),
+    )
+    mocker.patch(
+        "agents.research.live_search.search_organic",
+        side_effect=ConnectionError("could not reach serper.dev"),
+    )
+
+    agent = LiveSearchAgent()
+    with pytest.raises(RuntimeError, match="All product searches failed"):
+        agent.find_products("kettle", "appliances", "kettle")
+
+
 def test_find_products_propagates_serper_config_error(mocker):
     """A misconfigured/missing API key must surface as an actionable error, not silently
     become "no results" — find_products previously swallowed SerperConfigError along with

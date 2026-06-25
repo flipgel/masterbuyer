@@ -80,6 +80,9 @@ def do_search(query: str, quantity: int = 50, budget: float | None = None, must_
         except SerperConfigError as e:
             st.error(str(e))
             return
+        except Exception as e:
+            st.error(f"Search failed: {e}")
+            return
     st.session_state.last_result = result
     st.session_state.last_query = query
 

@@ -147,14 +147,20 @@ class LiveSearchAgent(BaseAgent):
         suppliers = self._matching_suppliers(category, subcategory)
 
         products: Dict[str, Product] = {}
+        attempted = 0
+        failed = 0
+        last_error: Optional[Exception] = None
 
+        attempted += 1
         try:
             shopping_hits = search_shopping(f"{base_query} hotel", num=SHOPPING_RESULTS)
         except SerperConfigError:
             raise
-        except Exception:
+        except Exception as e:
             logger.warning("Serper shopping search failed for %r", base_query, exc_info=True)
             shopping_hits = []
+            failed += 1
+            last_error = e
         for hit in shopping_hits:
             product = self._product_from_shopping(hit, category, subcategory)
             if product:
@@ -169,13 +175,22 @@ class LiveSearchAgent(BaseAgent):
                 for s in suppliers
             }
             for fut in as_completed(futures):
+                attempted += 1
                 try:
                     organic_results.extend(fut.result())
                 except SerperConfigError:
                     raise
-                except Exception:
+                except Exception as e:
                     logger.warning("Serper organic search failed for a supplier", exc_info=True)
+                    failed += 1
+                    last_error = e
                     continue
+
+        # If every single search call failed, this is a systemic problem (network egress
+        # blocked, Serper down/rate-limited, etc.) — surface it instead of silently
+        # reporting "no results found", which is indistinguishable from a genuine miss.
+        if attempted > 0 and failed == attempted:
+            raise RuntimeError(f"All product searches failed: {last_error}") from last_error
 
         with ThreadPoolExecutor(max_workers=6) as pool:
             futures = [
