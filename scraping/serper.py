@@ -84,7 +84,11 @@ def _post(path: str, payload: dict, ttl_seconds: int = CACHE_TTL_SHORT_SECONDS) 
     )
     response.raise_for_status()
     data = response.json()
-    cache.set("serper", cache_key, data, ttl_seconds=ttl_seconds)
+    # Don't cache empty result sets — a transient hiccup (rate limit, momentary upstream
+    # blip) that happens to return 200 with zero hits would otherwise poison every search
+    # for this query for the next hour, indistinguishable from "genuinely no matches."
+    if data.get("organic") or data.get("shopping"):
+        cache.set("serper", cache_key, data, ttl_seconds=ttl_seconds)
     return data
 
 

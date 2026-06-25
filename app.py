@@ -2,6 +2,7 @@
 import streamlit as st
 
 from agents.orchestrator import OrchestratorAgent
+from core.cache import cache
 from core.models import HotelProfile, ResearchRequest, ResearchResult
 from core.query_intent import infer_category
 from core.scoring import score_to_grade
@@ -185,9 +186,17 @@ def render_advanced_panel() -> None:
                 value=", ".join(result.request.must_have),
                 placeholder="e.g. CE mark, 5-year warranty",
             )
-            if st.button("Re-run with these settings"):
-                do_search(st.session_state.last_query, quantity, budget, must_have)
-                st.rerun()
+            ref_cols = st.columns(2)
+            with ref_cols[0]:
+                if st.button("Re-run with these settings"):
+                    do_search(st.session_state.last_query, quantity, budget, must_have)
+                    st.rerun()
+            with ref_cols[1]:
+                if st.button("🔄 Clear cache & retry"):
+                    st.cache_data.clear()
+                    cache.clear_all()
+                    do_search(st.session_state.last_query, quantity, budget, must_have)
+                    st.rerun()
 
             st.subheader("Full results table")
             render_dashboard(result)
