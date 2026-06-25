@@ -127,8 +127,11 @@ st.markdown(
     /* ── captions ── */
     .stCaption { color: var(--muted) !important; font-size: 0.8rem !important; }
 
-    /* ── sidebar ghost ── */
+    /* ── hide Streamlit toolbar chrome ── */
     [data-testid="collapsedControl"] { display: none !important; }
+    [data-testid="manage-app-button"],
+    [data-testid="stDeployButton"],
+    .stDeployButton { display: none !important; }
 
     /* ── metric labels ── */
     [data-testid="stMetricLabel"] { font-size: 0.7rem !important; color: var(--muted) !important; }

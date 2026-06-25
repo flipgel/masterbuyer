@@ -1,4 +1,4 @@
-"""A very-in-your-face mascot that pops in from the bottom of the screen."""
+"""Mascot that pops up from random screen locations with dynamic animations."""
 import json
 import random
 
@@ -14,103 +14,139 @@ MESSAGES = [
     "Remember to breathe. Slowly. In. Out. 🌿",
     "You've got this. Every single item on that list. 💪",
     "Don't forget to blink. Seriously. 👁️",
-    "Irina says: take a sip of water. Now. 💧",
+    "Take a sip of water. Now. 💧",
     "You're building something beautiful. ✨",
-    "A little sunshine wouldn't hurt. Step outside? ☀️",
+    "Go touch some grass after this. 🌱",
+    "You're literally the best. No notes. 🤌",
+    "Hydration check: failing. Fix it. 💦",
+    "One product at a time. You're almost there. 🏁",
 ]
 
 _MASCOT_HTML = """
 <style>
+/* hide Streamlit chrome that clashes with mascot */
+[data-testid="manage-app-button"],
+[data-testid="stDeployButton"],
+.stDeployButton,
+section[data-testid="stSidebar"] ~ div > div > button[title="Manage app"] {
+  display: none !important;
+}
+
 #mb-wrap {
   position: fixed;
-  bottom: -240px;
-  right: 28px;
-  z-index: 999999;
+  z-index: 2147483647;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 180px;
+  width: 175px;
   cursor: pointer;
-  transition: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0) rotate(-20deg);
 }
-#mb-wrap.mb-show {
-  animation: mb-bounce-in 0.55s cubic-bezier(.17,.67,.35,1.4) forwards;
+#mb-wrap.mb-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
-#mb-wrap.mb-hide {
-  animation: mb-slide-out 0.4s ease-in forwards;
+#mb-wrap.mb-pop {
+  animation: mb-popin 0.6s cubic-bezier(.17,.89,.32,1.6) forwards;
 }
-@keyframes mb-bounce-in {
-  0%%   { bottom: -240px; }
-  60%%  { bottom: 28px; }
-  75%%  { bottom: 12px; }
-  88%%  { bottom: 34px; }
-  100%% { bottom: 22px; }
+#mb-wrap.mb-vanish {
+  animation: mb-popout 0.35s cubic-bezier(.55,0,.45,1) forwards;
 }
-@keyframes mb-slide-out {
-  from { bottom: 22px; opacity: 1; }
-  to   { bottom: -240px; opacity: 0; }
+@keyframes mb-popin {
+  0%%   { opacity:0; transform: scale(0) rotate(-25deg); }
+  60%%  { opacity:1; transform: scale(1.18) rotate(6deg); }
+  78%%  { transform: scale(0.9) rotate(-3deg); }
+  90%%  { transform: scale(1.05) rotate(2deg); }
+  100%% { opacity:1; transform: scale(1) rotate(0deg); }
 }
+@keyframes mb-popout {
+  0%%   { opacity:1; transform: scale(1); }
+  40%%  { transform: scale(1.1) rotate(8deg); }
+  100%% { opacity:0; transform: scale(0) rotate(-15deg); }
+}
+
 #mb-bubble {
   background: #FFE500;
   color: #0D0D0D;
   border: 3px solid #0D0D0D;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-family: Outfit, sans-serif;
-  font-size: 15px;
+  border-radius: 14px;
+  padding: 13px 17px;
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.4;
   text-align: center;
   max-width: 170px;
-  box-shadow: 4px 4px 0 #0D0D0D;
+  box-shadow: 5px 5px 0 #0D0D0D;
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+}
+.mb-bubble-below {
+  order: 2;
+  margin-bottom: 0 !important;
+  margin-top: 10px;
 }
 #mb-bubble::after {
   content: '';
   position: absolute;
-  bottom: -14px;
+  bottom: -15px;
   left: 50%%;
   transform: translateX(-50%%);
-  border: 7px solid transparent;
+  border: 8px solid transparent;
   border-top-color: #0D0D0D;
 }
 #mb-bubble::before {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -11px;
   left: 50%%;
   transform: translateX(-50%%);
   border: 6px solid transparent;
   border-top-color: #FFE500;
   z-index: 1;
 }
+.mb-bubble-below::after {
+  bottom: auto; top: -15px;
+  border-top-color: transparent;
+  border-bottom-color: #0D0D0D;
+}
+.mb-bubble-below::before {
+  bottom: auto; top: -11px;
+  border-top-color: transparent;
+  border-bottom-color: #FFE500;
+}
+
 #mb-bear {
-  font-size: 72px;
+  font-size: 70px;
   line-height: 1;
-  animation: mb-bob 1.8s ease-in-out infinite;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+  animation: mb-bob 2s ease-in-out infinite;
 }
 @keyframes mb-bob {
-  0%%, 100%% { transform: translateY(0) rotate(-2deg); }
-  50%%       { transform: translateY(-8px) rotate(3deg); }
+  0%%,100%% { transform: translateY(0) rotate(-3deg) scaleX(1); }
+  25%%      { transform: translateY(-10px) rotate(4deg) scaleX(1.04); }
+  75%%      { transform: translateY(-4px) rotate(-2deg) scaleX(0.97); }
 }
+
 #mb-dismiss {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  width: 22px;
-  height: 22px;
+  top: -10px;
+  right: -10px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%%;
   background: #0D0D0D;
-  color: #fff;
-  font-size: 12px;
+  color: #FFE500;
+  font-size: 13px;
   font-weight: 900;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
 }
 </style>
 
@@ -126,54 +162,112 @@ _MASCOT_HTML = """
 (function() {
   const messages = %s;
   let idx = %d;
-  let timer;
+  let hideTimer, nextTimer;
+
+  const SPOTS = [
+    { right:'24px', bottom:'80px', top:'auto', left:'auto' },
+    { left:'24px',  bottom:'80px', top:'auto', right:'auto' },
+    { right:'24px', top:'90px',  bottom:'auto', left:'auto' },
+    { left:'24px',  top:'90px',  bottom:'auto', right:'auto' },
+    { right:'24px', top:'40%%', bottom:'auto', left:'auto' },
+    { left:'24px',  top:'40%%', bottom:'auto', right:'auto' },
+    { left:'50%%',  bottom:'80px', top:'auto', right:'auto', transform:'translateX(-50%%)' },
+    { left:'50%%',  top:'90px',  bottom:'auto', right:'auto', transform:'translateX(-50%%)' },
+  ];
 
   function getWrap() {
     try { return window.parent.document.getElementById('mb-wrap'); }
     catch(e) { return document.getElementById('mb-wrap'); }
   }
 
+  function getDoc() {
+    try { return window.parent.document; }
+    catch(e) { return document; }
+  }
+
   function lift() {
     const src = document.getElementById('mb-wrap');
-    const tgt = getWrap();
-    if (src && !window.parent.document.getElementById('mb-wrap')) {
+    const pdoc = getDoc();
+    if (src && !pdoc.getElementById('mb-wrap')) {
+      // inject styles into parent
       const styleEl = document.querySelector('style');
-      if (styleEl) window.parent.document.head.appendChild(styleEl.cloneNode(true));
-      window.parent.document.body.appendChild(src.cloneNode(true));
+      if (styleEl) pdoc.head.appendChild(styleEl.cloneNode(true));
+      pdoc.body.appendChild(src.cloneNode(true));
+    }
+  }
+
+  function placeAtRandomSpot(wrap) {
+    const spot = SPOTS[Math.floor(Math.random() * SPOTS.length)];
+    wrap.style.right     = spot.right     || '';
+    wrap.style.left      = spot.left      || '';
+    wrap.style.top       = spot.top       || '';
+    wrap.style.bottom    = spot.bottom    || '';
+    wrap.style.transform = spot.transform || '';
+
+    // Flip bubble below bear when appearing near top edge
+    const bubble = wrap.querySelector('#mb-bubble');
+    const bear   = wrap.querySelector('#mb-bear');
+    if (bubble && bear) {
+      if (spot.top && spot.top !== 'auto') {
+        bubble.classList.add('mb-bubble-below');
+        wrap.style.flexDirection = 'column-reverse';
+      } else {
+        bubble.classList.remove('mb-bubble-below');
+        wrap.style.flexDirection = 'column';
+      }
     }
   }
 
   function show() {
     const wrap = getWrap();
     if (!wrap) return;
-    const txt = wrap.querySelector('#mb-text') || wrap;
-    if (txt.id === 'mb-text') txt.textContent = messages[idx %% messages.length];
+
+    // reset animation state
+    wrap.classList.remove('mb-pop', 'mb-vanish', 'mb-visible');
+    void wrap.offsetWidth; // reflow
+
+    // pick a spot and update message
+    placeAtRandomSpot(wrap);
+    const txt = wrap.querySelector('#mb-text');
+    if (txt) txt.textContent = messages[idx %% messages.length];
     idx++;
-    wrap.classList.remove('mb-hide');
-    wrap.classList.add('mb-show');
-    clearTimeout(timer);
-    timer = setTimeout(hide, 8000);
+
+    wrap.classList.add('mb-visible', 'mb-pop');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(hide, 9000);
   }
 
   function hide() {
     const wrap = getWrap();
     if (!wrap) return;
-    wrap.classList.remove('mb-show');
-    wrap.classList.add('mb-hide');
+    wrap.classList.remove('mb-pop');
+    wrap.classList.add('mb-vanish');
+    setTimeout(() => wrap.classList.remove('mb-visible', 'mb-vanish'), 400);
+  }
+
+  function scheduleNext() {
+    const delay = 20000 + Math.random() * 15000; // 20-35s — keeps it surprising
+    nextTimer = setTimeout(() => { show(); scheduleNext(); }, delay);
   }
 
   function init() {
     lift();
     const wrap = getWrap();
     if (!wrap) return;
+
     wrap.addEventListener('click', function(e) {
-      if (e.target.id === 'mb-dismiss') { hide(); return; }
+      e.stopPropagation();
+      if (e.target.id === 'mb-dismiss' || e.target.closest('#mb-dismiss')) {
+        hide(); return;
+      }
+      clearTimeout(hideTimer);
+      clearTimeout(nextTimer);
       show();
+      scheduleNext();
     });
-    const dis = wrap.querySelector('#mb-dismiss');
-    if (dis) dis.addEventListener('click', function(e) { e.stopPropagation(); hide(); });
-    setTimeout(show, 1200);
-    setInterval(show, 28000);
+
+    // first pop: 1.5-3s after load
+    setTimeout(() => { show(); scheduleNext(); }, 1500 + Math.random() * 1500);
   }
 
   if (document.readyState === 'loading') {
@@ -190,6 +284,5 @@ def render_mascot() -> None:
     start_idx = random.randint(0, len(MESSAGES) - 1)
     components.html(
         _MASCOT_HTML % (json.dumps(MESSAGES), start_idx),
-        height=0,
-        width=0,
+        height=0, width=0,
     )
