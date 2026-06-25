@@ -127,15 +127,94 @@ st.markdown(
     /* ── captions ── */
     .stCaption { color: var(--muted) !important; font-size: 0.8rem !important; }
 
-    /* ── hide Streamlit toolbar chrome ── */
-    [data-testid="collapsedControl"] { display: none !important; }
+    /* ── hide all Streamlit chrome (toolbar, deploy, manage) ── */
+    [data-testid="collapsedControl"],
+    [data-testid="stToolbar"],
     [data-testid="manage-app-button"],
     [data-testid="stDeployButton"],
-    .stDeployButton { display: none !important; }
+    [data-testid="stStatusWidget"],
+    .stDeployButton,
+    #MainMenu,
+    header[data-testid="stHeader"] { display: none !important; }
 
     /* ── metric labels ── */
     [data-testid="stMetricLabel"] { font-size: 0.7rem !important; color: var(--muted) !important; }
     [data-testid="stMetricValue"] { font-family: 'Syne', sans-serif !important; font-weight: 700 !important; }
+
+    /* ──────────────────────────────────────────
+       iOS / MOBILE
+       ────────────────────────────────────────── */
+
+    /* Prevent iOS auto-zoom on input focus (requires ≥ 16px) */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+
+    /* Ensure tap targets meet Apple HIG minimum (44 × 44 pt) */
+    .stButton>button,
+    [data-testid="stLinkButton"] a {
+        min-height: 44px !important;
+        padding: 0 16px !important;
+    }
+
+    /* Remove hover transform on touch devices (avoids stuck states) */
+    @media (hover: none) {
+        .stButton>button:hover {
+            background: var(--ink) !important;
+            border-color: var(--ink) !important;
+            transform: none !important;
+        }
+    }
+
+    /* ── Phone layout (≤ 640 px) ── */
+    @media (max-width: 640px) {
+        /* Tighten page padding on small screens */
+        .main .block-container {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+            padding-top: 1rem !important;
+        }
+
+        /* Result cards: stack the five columns into two rows
+           (image+name on top, price+grade+email below) */
+        [data-testid="stVerticalBlockBorderWrapper"]
+        > div > div > [data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+        }
+        [data-testid="stVerticalBlockBorderWrapper"]
+        > div > div > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:nth-child(1) {
+            flex: 0 0 20% !important; min-width: 20% !important;
+        }
+        [data-testid="stVerticalBlockBorderWrapper"]
+        > div > div > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:nth-child(2) {
+            flex: 0 0 80% !important; min-width: 80% !important;
+        }
+        [data-testid="stVerticalBlockBorderWrapper"]
+        > div > div > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:nth-child(3),
+        [data-testid="stVerticalBlockBorderWrapper"]
+        > div > div > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:nth-child(4) {
+            flex: 0 0 33% !important; min-width: 33% !important;
+        }
+        [data-testid="stVerticalBlockBorderWrapper"]
+        > div > div > [data-testid="stHorizontalBlock"]
+        > [data-testid="stColumn"]:nth-child(5) {
+            flex: 0 0 34% !important; min-width: 34% !important;
+        }
+
+        /* Filter bar: 2-per-row grid */
+        [data-testid="stHorizontalBlock"]:has(
+            [data-testid="stMultiSelect"]
+        ) > [data-testid="stColumn"] {
+            flex: 0 0 50% !important; min-width: 50% !important;
+        }
+
+        /* Score metrics: smaller on mobile */
+        [data-testid="stMetricValue"] { font-size: 1.1rem !important; }
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -203,13 +282,15 @@ def render_search_bar() -> None:
 
 
 def render_landing() -> None:
-    st.markdown("<div style='height:10vh'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:clamp(16px,5vh,10vh)'></div>", unsafe_allow_html=True)
     st.markdown(
         """
-        <div style='text-align:center; margin-bottom:4px;'>
-            <span style='font-family:Syne,sans-serif; font-size:90px; font-weight:900;
+        <div style='text-align:center; margin-bottom:4px; white-space:nowrap;'>
+            <span style='font-family:Syne,sans-serif;
+                         font-size:clamp(28px,8.5vw,90px); font-weight:900;
                          color:#0D0D0D; letter-spacing:-0.05em; line-height:1;'>master</span><span
-                  style='font-family:Syne,sans-serif; font-size:90px; font-weight:900;
+                  style='font-family:Syne,sans-serif;
+                         font-size:clamp(28px,8.5vw,90px); font-weight:900;
                          color:#FF4500; letter-spacing:-0.05em; line-height:1;'>buyer</span>
         </div>
         <p style='text-align:center; font-family:Outfit,sans-serif; color:#7A7670;
@@ -402,10 +483,10 @@ def main() -> None:
         render_landing()
     else:
         st.markdown(
-            "<span style='font-family:Syne,sans-serif; font-weight:900; font-size:2rem;"
-            " color:#0D0D0D; letter-spacing:-0.04em;'>master</span>"
-            "<span style='font-family:Syne,sans-serif; font-weight:900; font-size:2rem;"
-            " color:#FF4500; letter-spacing:-0.04em;'>buyer</span>",
+            "<span style='font-family:Syne,sans-serif; font-weight:900;"
+            " font-size:clamp(1.4rem,5vw,2rem); color:#0D0D0D; letter-spacing:-0.04em;'>master</span>"
+            "<span style='font-family:Syne,sans-serif; font-weight:900;"
+            " font-size:clamp(1.4rem,5vw,2rem); color:#FF4500; letter-spacing:-0.04em;'>buyer</span>",
             unsafe_allow_html=True,
         )
         render_search_bar()

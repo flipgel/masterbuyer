@@ -84,7 +84,10 @@ def _post(path: str, payload: dict, ttl_seconds: int = CACHE_TTL_SHORT_SECONDS) 
         timeout=15,
     )
     response.raise_for_status()
-    data = response.json()
+    try:
+        data = response.json()
+    except ValueError as e:
+        raise RuntimeError(f"Serper returned non-JSON response: {e}") from e
     # Don't cache empty result sets — a transient hiccup (rate limit, momentary upstream
     # blip) that happens to return 200 with zero hits would otherwise poison every search
     # for this query for the next hour, indistinguishable from "genuinely no matches."

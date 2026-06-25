@@ -113,11 +113,15 @@ _MASCOT_HTML = """
 #mb-bubble.bubble-below::before { bottom:auto; top:-10px; border-top-color:transparent; border-bottom-color:#FFE500; }
 
 #mb-figure {
-  height: 100px;
+  height: clamp(60px, 12vw, 100px);
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 6px 12px rgba(0,0,0,0.28));
   animation: mb-bob 1.6s ease-in-out infinite;
+}
+@media (max-width: 640px) {
+  #mb-wrap { width: 130px !important; }
+  #mb-bubble { font-size: 12px !important; padding: 9px 12px !important; max-width: 125px !important; }
 }
 @keyframes mb-bob {
   0%%,100%% { transform: translateY(0) rotate(-2deg); }
