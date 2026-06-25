@@ -26,21 +26,113 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@400;500;600&display=swap');
     :root {
-        --hotel-navy: #1E3A5F;
-        --hotel-gold: #D4A843;
-        --hotel-cream: #FDFCFA;
+        --ink:     #0D0D0D;
+        --bg:      #F7F4EF;
+        --surface: #FFFFFF;
+        --accent:  #FF4500;
+        --accent2: #5B2EFF;
+        --muted:   #7A7670;
+        --border:  #D9D4CC;
+        --grade-a: #00B87A;
+        --grade-b: #3B9EFF;
+        --grade-c: #F5A623;
+        --grade-d: #FF6B35;
+        --grade-f: #E82C2C;
     }
-    .main .block-container { background-color: var(--hotel-cream); max-width: 880px; }
-    h1, h2, h3 { color: var(--hotel-navy) !important; font-weight: 700 !important; }
+
+    /* ── typography ── */
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif !important;
+    }
+    h1, h2, h3 {
+        font-family: 'Syne', sans-serif !important;
+        font-weight: 800 !important;
+        color: var(--ink) !important;
+        letter-spacing: -0.03em !important;
+    }
+
+    /* ── page background — subtle crosshatch ── */
+    .main {
+        background-color: var(--bg) !important;
+        background-image:
+            linear-gradient(rgba(13,13,13,.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(13,13,13,.04) 1px, transparent 1px) !important;
+        background-size: 28px 28px !important;
+    }
+    .main .block-container {
+        background: transparent !important;
+        max-width: 940px !important;
+        padding-top: 2rem !important;
+    }
+
+    /* ── cards — left accent stripe ── */
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        background: var(--surface) !important;
+        border: 1.5px solid var(--border) !important;
+        border-left: 4px solid var(--accent) !important;
+        border-radius: 3px !important;
+        box-shadow: 3px 3px 0px var(--border) !important;
+    }
+
+    /* ── buttons ── */
     .stButton>button {
-        background-color: var(--hotel-gold) !important;
-        color: #1A1A1A !important;
+        background: var(--ink) !important;
+        color: #fff !important;
+        font-family: 'Outfit', sans-serif !important;
         font-weight: 600 !important;
-        border: 2px solid #B88A2E !important;
-        border-radius: 6px !important;
+        border: 2px solid var(--ink) !important;
+        border-radius: 3px !important;
+        letter-spacing: 0.01em !important;
+        transition: background 0.15s, transform 0.1s !important;
     }
-    .stButton>button:hover { background-color: #E6BC5C !important; }
+    .stButton>button:hover {
+        background: var(--accent) !important;
+        border-color: var(--accent) !important;
+        transform: translate(-1px, -1px) !important;
+    }
+
+    /* ── link buttons ── */
+    [data-testid="stLinkButton"] a {
+        background: var(--surface) !important;
+        color: var(--ink) !important;
+        border: 1.5px solid var(--border) !important;
+        border-radius: 3px !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem !important;
+    }
+    [data-testid="stLinkButton"] a:hover {
+        border-color: var(--accent) !important;
+        color: var(--accent) !important;
+    }
+
+    /* ── expanders ── */
+    [data-testid="stExpander"] summary {
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 0.875rem !important;
+        color: var(--muted) !important;
+    }
+    [data-testid="stExpander"] summary:hover { color: var(--ink) !important; }
+
+    /* ── search input ── */
+    input[aria-label="Search"] {
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 1.1rem !important;
+        border: 2px solid var(--ink) !important;
+        border-radius: 3px !important;
+    }
+
+    /* ── captions ── */
+    .stCaption { color: var(--muted) !important; font-size: 0.8rem !important; }
+
+    /* ── sidebar ghost ── */
+    [data-testid="collapsedControl"] { display: none !important; }
+
+    /* ── metric labels ── */
+    [data-testid="stMetricLabel"] { font-size: 0.7rem !important; color: var(--muted) !important; }
+    [data-testid="stMetricValue"] { font-family: 'Syne', sans-serif !important; font-weight: 700 !important; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -108,13 +200,20 @@ def render_search_bar() -> None:
 
 
 def render_landing() -> None:
-    st.markdown("<div style='height:14vh'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:10vh'></div>", unsafe_allow_html=True)
     st.markdown(
-        "<h1 style='text-align:center; font-size:64px;'>masterbuyer</h1>",
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        "<p style='text-align:center; color:#888; font-style:italic;'>yes Irina, masterbuyer.</p>",
+        """
+        <div style='text-align:center; margin-bottom:4px;'>
+            <span style='font-family:Syne,sans-serif; font-size:90px; font-weight:900;
+                         color:#0D0D0D; letter-spacing:-0.05em; line-height:1;'>master</span><span
+                  style='font-family:Syne,sans-serif; font-size:90px; font-weight:900;
+                         color:#FF4500; letter-spacing:-0.05em; line-height:1;'>buyer</span>
+        </div>
+        <p style='text-align:center; font-family:Outfit,sans-serif; color:#7A7670;
+                  font-size:1rem; margin-top:6px; letter-spacing:0.05em;'>
+            yes Irina, <em>masterbuyer.</em>
+        </p>
+        """,
         unsafe_allow_html=True,
     )
     render_search_bar()
@@ -125,21 +224,54 @@ def render_landing() -> None:
         )
 
 
+_GRADE_COLORS = {
+    "A+": "#00B87A", "A": "#00B87A",
+    "B": "#3B9EFF",
+    "C": "#F5A623",
+    "D": "#FF6B35",
+    "F": "#E82C2C",
+}
+
+
+def _rank_badge(n: int) -> str:
+    return (
+        f"<span style='display:inline-flex; align-items:center; justify-content:center;"
+        f" width:28px; height:28px; border-radius:50%; background:#0D0D0D; color:#fff;"
+        f" font-family:Syne,sans-serif; font-weight:900; font-size:12px;'>{n}</span>"
+    )
+
+
+def _grade_pill(score: float) -> str:
+    grade = score_to_grade(score)
+    color = _GRADE_COLORS.get(grade, "#888")
+    return (
+        f"<span style='display:inline-block; padding:2px 8px; border-radius:3px;"
+        f" background:{color}; color:#fff; font-family:Syne,sans-serif;"
+        f" font-weight:800; font-size:13px;'>{grade}</span>"
+        f"<span style='color:#7A7670; font-size:11px; margin-left:4px;'>{score:.0f}</span>"
+    )
+
+
 def render_result_row(product, rank: int, hotel_name: str) -> None:
     with st.container(border=True):
         cols = st.columns([1, 4, 2, 1, 2])
         with cols[0]:
             render_product_image(product.image_url, width=80)
         with cols[1]:
-            if product.source_url:
-                st.markdown(f"**#{rank} [{product.brand} {product.name}]({product.source_url})**")
-            else:
-                st.markdown(f"**#{rank} {product.brand} {product.name}**")
+            badge = _rank_badge(rank)
+            name = f"[{product.brand} — {product.name}]({product.source_url})" if product.source_url else f"{product.brand} — {product.name}"
+            st.markdown(
+                f"{badge} &nbsp; **{name}**",
+                unsafe_allow_html=True,
+            )
             st.caption(product.subcategory.title())
         with cols[2]:
-            st.markdown(f"**{product.display_price}**")
+            st.markdown(
+                f"<span style='font-family:Syne,sans-serif; font-weight:700; font-size:1.05rem;'>{product.display_price}</span>",
+                unsafe_allow_html=True,
+            )
         with cols[3]:
-            st.markdown(f"**{product.overall_score:.0f}** {score_to_grade(product.overall_score)}")
+            st.markdown(_grade_pill(product.overall_score), unsafe_allow_html=True)
         with cols[4]:
             mailto = build_mailto_link(product, hotel_name)
             st.link_button("✉️ Inquiry email", mailto, use_container_width=True)
@@ -266,7 +398,13 @@ def main() -> None:
     if st.session_state.last_result is None:
         render_landing()
     else:
-        st.markdown("<h2 style='text-align:left;'>masterbuyer</h2>", unsafe_allow_html=True)
+        st.markdown(
+            "<span style='font-family:Syne,sans-serif; font-weight:900; font-size:2rem;"
+            " color:#0D0D0D; letter-spacing:-0.04em;'>master</span>"
+            "<span style='font-family:Syne,sans-serif; font-weight:900; font-size:2rem;"
+            " color:#FF4500; letter-spacing:-0.04em;'>buyer</span>",
+            unsafe_allow_html=True,
+        )
         render_search_bar()
         render_advanced_panel()
         render_results()
