@@ -248,7 +248,8 @@ def init_session_state() -> None:
 
 @st.cache_data(ttl=3600)
 def run_research(
-    category: str, query: str, quantity: int, budget: float | None, must_have: str
+    category: str, query: str, quantity: int, budget: float | None, must_have: str,
+    brand_mode: bool = False,
 ) -> ResearchResult:
     """Run live research and return a ResearchResult object (cached via pickle)."""
     request = ResearchRequest(
@@ -258,6 +259,7 @@ def run_research(
         query=query,
         design_brief=query,
         must_have=[x.strip() for x in must_have.split(",") if x.strip()],
+        brand_mode=brand_mode,
     )
     orchestrator = OrchestratorAgent()
     return orchestrator.run(request)
@@ -269,11 +271,12 @@ def do_search(
     budget: float | None = None,
     must_have: str = "",
     display_query: str | None = None,
+    brand_mode: bool = False,
 ) -> None:
     category = infer_category(query)
     with st.spinner("Searching live supplier sites and the web..."):
         try:
-            result = run_research(category, query, quantity, budget, must_have)
+            result = run_research(category, query, quantity, budget, must_have, brand_mode)
         except SerperConfigError as e:
             st.error(str(e))
             return
@@ -282,6 +285,7 @@ def do_search(
             return
     st.session_state.last_result = result
     st.session_state.last_query = display_query if display_query is not None else query
+    st.session_state.brand_mode_active = brand_mode
     # Reset filters so they don't bleed into a new search's product set
     st.session_state.pop("filter_initialised", None)
 
@@ -334,7 +338,7 @@ def render_search_bar() -> None:
         else:
             st.session_state.search_mode = "product"
             effective_query = brand_name
-        do_search(effective_query, display_query=brand_name)
+        do_search(effective_query, display_query=brand_name, brand_mode=is_brand)
         st.rerun()
 
 
@@ -401,6 +405,13 @@ _IMG_PLACEHOLDER = (
 )
 
 
+_OFFICIAL_BADGE = (
+    "<span style='display:inline-block; padding:1px 7px; border-radius:3px;"
+    " background:#0D0D0D; color:#fff; font-family:Syne,sans-serif;"
+    " font-weight:800; font-size:11px; letter-spacing:0.03em;'>OFFICIAL</span>"
+)
+
+
 def render_result_row(product, rank: int, hotel_name: str) -> None:
     with st.container(border=True):
         cols = st.columns([1, 4, 2, 1, 2])
@@ -412,8 +423,9 @@ def render_result_row(product, rank: int, hotel_name: str) -> None:
         with cols[1]:
             badge = _rank_badge(rank)
             name = f"[{product.brand} — {product.name}]({product.source_url})" if product.source_url else f"{product.brand} — {product.name}"
+            official = f" &nbsp; {_OFFICIAL_BADGE}" if product.is_official_source else ""
             st.markdown(
-                f"{badge} &nbsp; **{name}**",
+                f"{badge} &nbsp; **{name}**{official}",
                 unsafe_allow_html=True,
             )
             st.caption(product.subcategory.title())
@@ -508,10 +520,26 @@ def render_results() -> None:
 
     hotel_name = st.session_state.hotel_profile.name or "Our Hotel Project"
     render_diagnostics(result.diagnostics)
-    filtered = render_filters(result.products)
-    st.caption(f"Showing {len(filtered)} of {len(result.products)} live results, ranked by overall fit for a luxury hotel.")
-    for i, product in enumerate(filtered, 1):
-        render_result_row(product, i, hotel_name)
+
+    is_brand = st.session_state.get("brand_mode_active", False)
+    if is_brand:
+        # Official source pinned first, then resellers sorted cheapest first.
+        official = [p for p in result.products if p.is_official_source]
+        resellers = sorted(
+            [p for p in result.products if not p.is_official_source],
+            key=lambda p: p.effective_price if p.effective_price is not None else float("inf"),
+        )
+        filtered_products = official + resellers
+        st.caption(
+            f"{len(official)} official source · {len(resellers)} resellers sorted cheapest first"
+        )
+        for i, product in enumerate(filtered_products, 1):
+            render_result_row(product, i, hotel_name)
+    else:
+        filtered = render_filters(result.products)
+        st.caption(f"Showing {len(filtered)} of {len(result.products)} live results, ranked by overall fit for a luxury hotel.")
+        for i, product in enumerate(filtered, 1):
+            render_result_row(product, i, hotel_name)
 
 
 def render_advanced_panel() -> None:

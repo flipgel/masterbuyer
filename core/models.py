@@ -57,6 +57,7 @@ class Product:
     supplier: Optional[Supplier] = None
     source_url: Optional[str] = None
     image_url: Optional[str] = None
+    is_official_source: bool = False  # True when the result comes from the brand's own site
     availability_weeks: Optional[int] = None
     warranty_years: Optional[float] = None
     certifications: List[str] = field(default_factory=list)
@@ -115,6 +116,7 @@ class ResearchRequest:
     nice_to_have: List[str] = field(default_factory=list)
     sustainability_priority: bool = False
     local_service_required: bool = True
+    brand_mode: bool = False  # True when searching by company/brand name directly
 
 
 @dataclass

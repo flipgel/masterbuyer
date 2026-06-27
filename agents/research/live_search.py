@@ -192,12 +192,12 @@ class LiveSearchAgent(BaseAgent):
     def _find_brand_direct(
         self, query: str, brand: Dict[str, Any], category: str, subcategory: str
     ) -> List[Product]:
-        """Search only the brand's own website — no resellers, no middlemen.
+        """Official source first, then resellers with prices for comparison.
 
-        Uses a Serper site: search to get pages indexed from the brand's own
-        domain. Cards are built from the Serper result data directly so they
-        work even when the site blocks scraping, with live-fetch enrichment
-        (price, image, specs) attempted as a best-effort on top.
+        1. site:<brand_website> organic → brand's own pages, marked is_official_source=True
+        2. Shopping for the brand name → all channels (resellers) with real prices
+        Official results are pinned first; resellers are sorted by price so the
+        cheapest option is immediately visible.
         """
         brand_name: str = brand["name"]
         brand_site: str = brand["website"]
@@ -211,7 +211,9 @@ class LiveSearchAgent(BaseAgent):
             "errors": [],
         }
         self.last_diagnostics = diag
+        products: Dict[str, Product] = {}
 
+        # --- Official source: brand's own website ---
         site_query = f"site:{brand_site} {product_type}".strip()
         try:
             site_results = search_organic(site_query, num=10)
@@ -219,35 +221,115 @@ class LiveSearchAgent(BaseAgent):
         except SerperConfigError:
             raise
         except Exception as e:
+            site_results = []
             diag["errors"].append(f"brand site search: {e}")
-            return []
 
-        products: Dict[str, Product] = {}
         with ThreadPoolExecutor(max_workers=6) as pool:
             futures = [
-                pool.submit(
-                    self._product_from_brand_site_result, r, brand_name, category, subcategory
-                )
+                pool.submit(self._product_from_brand_site_result, r, brand_name, category, subcategory)
                 for r in site_results
             ]
             for fut in as_completed(futures):
                 p = fut.result()
                 if p is not None and p.source_url not in products:
+                    p.is_official_source = True
+                    products[p.source_url] = p
+
+        # --- All channels: Shopping gives real prices from every seller ---
+        shopping_q = f"{brand_name} {product_type}".strip()
+        try:
+            shopping_hits = search_shopping(shopping_q, num=10)
+            diag["shopping_hits"] = len(shopping_hits)
+        except SerperConfigError:
+            raise
+        except Exception as e:
+            shopping_hits = []
+            diag["errors"].append(f"shopping search: {e}")
+
+        for hit in shopping_hits:
+            p = self._product_from_shopping(hit, category, subcategory)
+            if p and p.source_url not in products:
+                p.brand = brand_name
+                # Mark as official if the result URL is on the brand's own domain
+                p.is_official_source = brand_site in (p.source_url or "")
+                products[p.source_url] = p
+
+        diag["total_products"] = len(products)
+        return list(products.values())
+
+    def _find_unknown_brand(
+        self, query: str, category: str, subcategory: str
+    ) -> List[Product]:
+        """Brand mode for a company not in the catalog.
+
+        Quotes the brand name in Shopping so results are specific to that brand,
+        then tries to detect the official source by checking if any result URL
+        looks like it belongs to the brand itself.
+        """
+        diag: Dict[str, Any] = {
+            "mode": "unknown_brand",
+            "query": query,
+            "errors": [],
+        }
+        self.last_diagnostics = diag
+        products: Dict[str, Product] = {}
+
+        # Quoted name forces Google Shopping to stay on-brand
+        try:
+            shopping_hits = search_shopping(f'"{query}"', num=10)
+            diag["shopping_hits"] = len(shopping_hits)
+        except SerperConfigError:
+            raise
+        except Exception as e:
+            shopping_hits = []
+            diag["errors"].append(f"shopping: {e}")
+
+        brand_slug = query.lower().replace(" ", "").replace("-", "").replace("&", "")
+        for hit in shopping_hits:
+            p = self._product_from_shopping(hit, category, subcategory)
+            if p and p.source_url not in products:
+                domain = (p.source_url or "").lower()
+                p.is_official_source = brand_slug in domain.replace("-", "").replace(".", "")
+                products[p.source_url] = p
+
+        # Also try organic with quoted name for any official pages Shopping missed
+        try:
+            organic = search_organic(f'"{query}" official products', num=5)
+            diag["organic_hits"] = len(organic)
+        except Exception as e:
+            organic = []
+            diag["errors"].append(f"organic: {e}")
+
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            futures = [
+                pool.submit(self._product_from_brand_site_result, r, query, category, subcategory)
+                for r in organic if r.link not in products
+            ]
+            for fut in as_completed(futures):
+                p = fut.result()
+                if p and p.source_url not in products:
+                    domain = (p.source_url or "").lower()
+                    p.is_official_source = brand_slug in domain.replace("-", "").replace(".", "")
                     products[p.source_url] = p
 
         diag["total_products"] = len(products)
         return list(products.values())
 
     def find_products(
-        self, query: str, category: str, subcategory: Optional[str] = None
+        self, query: str, category: str, subcategory: Optional[str] = None,
+        brand_mode: bool = False,
     ) -> List[Product]:
         subcategory = subcategory or category
 
-        # Known brand → go straight to the manufacturer site + wholesale channels
-        # instead of Google Shopping retail results.
+        # Known brand → official source first, then all resellers with prices.
         brand = lookup_brand(query)
         if brand:
             return self._find_brand_direct(query, brand, category, subcategory)
+
+        # Brand mode but company not in catalog → quote the name in Shopping so
+        # results stay brand-specific; detect official pages by domain heuristic.
+        if brand_mode:
+            return self._find_unknown_brand(query, category, subcategory)
 
         # When subcategory == category (e.g. both are "general"), it means no
         # meaningful subcategory was inferred — don't append it to the query or

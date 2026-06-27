@@ -73,7 +73,8 @@ class CategoryAgent(BaseAgent):
         """
         query = request.query or request.design_brief or request.category
         return self.live_search_agent.find_products(
-            query=query, category=self.category_key, subcategory=request.category
+            query=query, category=self.category_key, subcategory=request.category,
+            brand_mode=request.brand_mode,
         )
 
     def run(self, request: ResearchRequest) -> List[Product]:
