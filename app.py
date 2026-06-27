@@ -222,11 +222,24 @@ st.markdown(
 )
 
 
+BRAND_PRODUCT_TYPES = [
+    "All products",
+    "Glassware",
+    "Tableware & Crockery",
+    "Cutlery & Flatware",
+    "Textiles & Linens",
+    "Bathroom accessories",
+    "Kitchen equipment",
+    "Decoration & Homeware",
+]
+
+
 def init_session_state() -> None:
     defaults = {
         "hotel_profile": HotelProfile(),
         "last_result": None,
         "last_query": "",
+        "search_mode": "product",
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -250,7 +263,13 @@ def run_research(
     return orchestrator.run(request)
 
 
-def do_search(query: str, quantity: int = 50, budget: float | None = None, must_have: str = "") -> None:
+def do_search(
+    query: str,
+    quantity: int = 50,
+    budget: float | None = None,
+    must_have: str = "",
+    display_query: str | None = None,
+) -> None:
     category = infer_category(query)
     with st.spinner("Searching live supplier sites and the web..."):
         try:
@@ -262,25 +281,60 @@ def do_search(query: str, quantity: int = 50, budget: float | None = None, must_
             st.error(f"Search failed: {e}")
             return
     st.session_state.last_result = result
-    st.session_state.last_query = query
+    st.session_state.last_query = display_query if display_query is not None else query
     # Reset filters so they don't bleed into a new search's product set
     st.session_state.pop("filter_initialised", None)
 
 
 def render_search_bar() -> None:
+    mode_index = 1 if st.session_state.get("search_mode") == "brand" else 0
+    mode = st.radio(
+        "Search by",
+        ["Product", "Brand catalog"],
+        index=mode_index,
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+    is_brand = mode == "Brand catalog"
+
     with st.form("search_form", clear_on_submit=False):
         cols = st.columns([5, 1])
         with cols[0]:
+            placeholder = (
+                "e.g. Pasabahce, Villeroy & Boch, Riedel, Frette..."
+                if is_brand
+                else "e.g. kettle, minibar fridge, brass bathroom faucet..."
+            )
             query = st.text_input(
                 "Search",
                 value=st.session_state.last_query,
-                placeholder="e.g. kettle, minibar fridge, brass bathroom faucet...",
+                placeholder=placeholder,
                 label_visibility="collapsed",
             )
         with cols[1]:
             submitted = st.form_submit_button("Search", type="primary", use_container_width=True)
+
+        product_type = "All products"
+        if is_brand:
+            product_type = st.selectbox(
+                "Product type (optional)",
+                BRAND_PRODUCT_TYPES,
+                label_visibility="collapsed",
+            )
+
     if submitted and query.strip():
-        do_search(query.strip())
+        brand_name = query.strip()
+        if is_brand:
+            st.session_state.search_mode = "brand"
+            type_hint = (
+                "" if product_type == "All products"
+                else f" {product_type.split('&')[0].strip().lower()}"
+            )
+            effective_query = f"{brand_name}{type_hint}"
+        else:
+            st.session_state.search_mode = "product"
+            effective_query = brand_name
+        do_search(effective_query, display_query=brand_name)
         st.rerun()
 
 

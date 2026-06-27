@@ -146,7 +146,10 @@ class LiveSearchAgent(BaseAgent):
         self, query: str, category: str, subcategory: Optional[str] = None
     ) -> List[Product]:
         subcategory = subcategory or category
-        base_query = f"{query} {subcategory}".strip()
+        # When subcategory == category (e.g. both are "general"), it means no
+        # meaningful subcategory was inferred — don't append it to the query or
+        # Serper ends up searching for "Pasabahce general hotel" etc.
+        base_query = f"{query} {subcategory}".strip() if subcategory != category else query
         suppliers = self._matching_suppliers(category, subcategory)
 
         diag: Dict[str, Any] = {
