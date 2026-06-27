@@ -1,0 +1,96 @@
+{
+  "brands": {
+    "Pasabahce": {
+      "website": "pasabahce.com",
+      "notes": "Turkish glassware manufacturer, major hotel supplier worldwide"
+    },
+    "Paşabahçe": {
+      "website": "pasabahce.com",
+      "notes": "Turkish glassware manufacturer (alt spelling)"
+    },
+    "Schott Zwiesel": {
+      "website": "schott-zwiesel.com",
+      "notes": "German crystal glassware for restaurants and hotels"
+    },
+    "Villeroy & Boch": {
+      "website": "villeroy-boch.com",
+      "notes": "German premium tableware, strong hotel brand"
+    },
+    "WMF": {
+      "website": "wmf.com",
+      "notes": "German cutlery, cookware and hotel equipment"
+    },
+    "Steelite": {
+      "website": "steelite.com",
+      "notes": "UK tableware manufacturer for hotels and restaurants"
+    },
+    "RAK Porcelain": {
+      "website": "rakporcelain.com",
+      "notes": "UAE porcelain manufacturer, dominant EMEA hotel supplier"
+    },
+    "Bauscher": {
+      "website": "bauscher.de",
+      "notes": "German professional porcelain for hospitality"
+    },
+    "Frette": {
+      "website": "frette.com",
+      "notes": "Italian luxury linens, used by leading luxury hotels"
+    },
+    "Christofle": {
+      "website": "christofle.com",
+      "notes": "French silverware and premium tableware"
+    },
+    "Riedel": {
+      "website": "riedel.com",
+      "notes": "Austrian wine glasses, widely used in luxury hospitality"
+    },
+    "Libbey": {
+      "website": "libbey.com",
+      "notes": "US commercial glassware, major foodservice supplier"
+    },
+    "Arc International": {
+      "website": "arc-intl.com",
+      "notes": "French glassware group (Arcoroc, Chef & Sommelier brands)"
+    },
+    "Arcoroc": {
+      "website": "arcoroc.com",
+      "notes": "Arc International's foodservice glassware brand"
+    },
+    "Dudson": {
+      "website": "dudson.com",
+      "notes": "UK ceramics for hotels and restaurants"
+    },
+    "Noritake": {
+      "website": "noritake.com",
+      "notes": "Japanese premium porcelain"
+    },
+    "Figgjo": {
+      "website": "figgjo.com",
+      "notes": "Norwegian ceramics for hospitality"
+    },
+    "Oneida": {
+      "website": "oneida.com",
+      "notes": "US flatware and tableware for foodservice"
+    },
+    "Sambonet": {
+      "website": "sambonet.com",
+      "notes": "Italian cutlery and silverware for luxury hotels"
+    },
+    "Alessi": {
+      "website": "alessi.com",
+      "notes": "Italian design objects and tableware"
+    },
+    "Berghoff": {
+      "website": "berghoffworldwide.com",
+      "notes": "Belgian premium cookware and tableware"
+    },
+    "Hendi": {
+      "website": "hendi.eu",
+      "notes": "Dutch hospitality equipment and tableware supplier"
+    },
+    "Duni": {
+      "website": "duni.com",
+      "notes": "Swedish table-top paper and textile products for hospitality"
+    }
+  }
+}

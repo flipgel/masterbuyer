@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 
 from agents.analysis.supplier_cross_check import SupplierCrossCheckAgent
 from agents.base import BaseAgent
-from core.data_loader import get_all_known_brands, load_suppliers
+from core.data_loader import get_all_known_brands, load_suppliers, lookup_brand
 from core.models import Product, ResearchRequest, Supplier
 from scraping.extractors import extract_manufacturer_specs
 from scraping.serper import OrganicResult, SerperConfigError, ShoppingResult, search_organic, search_shopping
@@ -142,10 +142,112 @@ class LiveSearchAgent(BaseAgent):
             supplier=self._to_supplier_model(supplier_dict),
         )
 
+    def _find_brand_direct(
+        self, query: str, brand: Dict[str, Any], category: str, subcategory: str
+    ) -> List[Product]:
+        """Search the brand's own site + wholesale channels instead of retail Shopping.
+
+        Retail Shopping (the normal path) returns Amazon, consumer stores, etc. at
+        marked-up prices. For a known brand we instead:
+          1. Search site:<brand_website> to find product pages on the brand's own site
+             (where B2B/trade pricing or "request a quote" contacts live).
+          2. Search Shopping with "wholesale" to surface authorized distributors and
+             B2B marketplaces rather than consumer retail.
+          3. Search organic for wholesale distributors by name.
+        """
+        brand_name: str = brand["name"]
+        brand_site: str = brand["website"]
+        # product_type = whatever comes after the brand name in the query
+        product_type = query[len(brand_name):].strip()  # e.g. "glassware" from "Pasabahce glassware"
+
+        diag: Dict[str, Any] = {
+            "mode": "brand_direct",
+            "brand": brand_name,
+            "brand_site": brand_site,
+            "product_type": product_type or "all",
+            "errors": [],
+        }
+        self.last_diagnostics = diag
+
+        products: Dict[str, Product] = {}
+
+        # --- 1. Brand's own site via site: organic search ---
+        site_query = f"site:{brand_site} {product_type}".strip()
+        try:
+            site_results = search_organic(site_query, num=10)
+            diag["brand_site_results"] = len(site_results)
+        except SerperConfigError:
+            raise
+        except Exception as e:
+            site_results = []
+            diag["errors"].append(f"brand site search: {e}")
+
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            futures = [
+                pool.submit(self._product_from_organic, r, category, subcategory)
+                for r in site_results
+            ]
+            for fut in as_completed(futures):
+                p = fut.result()
+                if p is not None and p.source_url not in products:
+                    # Override brand to the known name so scoring is correct
+                    p.brand = brand_name
+                    products[p.source_url] = p
+
+        # --- 2. Shopping: wholesale/B2B qualifier to avoid consumer retail ---
+        wholesale_q = f'"{brand_name}" {product_type} wholesale hospitality'.strip()
+        try:
+            shopping_hits = search_shopping(wholesale_q, num=10)
+            diag["wholesale_shopping_hits"] = len(shopping_hits)
+        except SerperConfigError:
+            raise
+        except Exception as e:
+            shopping_hits = []
+            diag["errors"].append(f"wholesale shopping: {e}")
+
+        for hit in shopping_hits:
+            p = self._product_from_shopping(hit, category, subcategory)
+            if p and p.source_url not in products:
+                p.brand = brand_name
+                products[p.source_url] = p
+
+        # --- 3. Organic: wholesale distributors ---
+        dist_q = f'"{brand_name}" {product_type} wholesale distributor B2B'.strip()
+        try:
+            dist_results = search_organic(dist_q, num=5)
+            diag["distributor_results"] = len(dist_results)
+        except SerperConfigError:
+            raise
+        except Exception as e:
+            dist_results = []
+            diag["errors"].append(f"distributor search: {e}")
+
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            futures = [
+                pool.submit(self._product_from_organic, r, category, subcategory)
+                for r in dist_results
+                if r.link not in products
+            ]
+            for fut in as_completed(futures):
+                p = fut.result()
+                if p is not None and p.source_url not in products:
+                    p.brand = brand_name
+                    products[p.source_url] = p
+
+        diag["total_products"] = len(products)
+        return list(products.values())
+
     def find_products(
         self, query: str, category: str, subcategory: Optional[str] = None
     ) -> List[Product]:
         subcategory = subcategory or category
+
+        # Known brand → go straight to the manufacturer site + wholesale channels
+        # instead of Google Shopping retail results.
+        brand = lookup_brand(query)
+        if brand:
+            return self._find_brand_direct(query, brand, category, subcategory)
+
         # When subcategory == category (e.g. both are "general"), it means no
         # meaningful subcategory was inferred — don't append it to the query or
         # Serper ends up searching for "Pasabahce general hotel" etc.

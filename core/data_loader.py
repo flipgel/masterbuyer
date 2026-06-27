@@ -1,7 +1,7 @@
 """Load curated JSON datasets into Python objects."""
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from core.config import DATA_DIR
 
@@ -37,6 +37,22 @@ def get_category_weights(category: str) -> Dict[str, float]:
 def get_brand_rarity(brand: str) -> Dict[str, Any]:
     taxonomy = load_category_taxonomy()
     return taxonomy.get("brand_rarity", {}).get(brand, {})
+
+
+def load_brand_catalog() -> Dict[str, Any]:
+    """Map brand names to their official website and notes."""
+    return _load_json("brand_catalog.json").get("brands", {})
+
+
+def lookup_brand(query: str) -> Optional[Dict[str, Any]]:
+    """Return catalog entry if the query starts with a known brand name, else None."""
+    catalog = load_brand_catalog()
+    q = query.lower().strip()
+    # Sort longest-first so "Arc International" wins over "Arc" if both existed.
+    for name in sorted(catalog, key=len, reverse=True):
+        if q == name.lower() or q.startswith(name.lower() + " "):
+            return {"name": name, **catalog[name]}
+    return None
 
 
 def get_all_known_brands() -> List[str]:
