@@ -142,23 +142,66 @@ class LiveSearchAgent(BaseAgent):
             supplier=self._to_supplier_model(supplier_dict),
         )
 
+    def _product_from_brand_site_result(
+        self, result: OrganicResult, brand_name: str, category: str, subcategory: str
+    ) -> Optional[Product]:
+        """Build a Product card from a Serper organic result without scraping the page.
+
+        Manufacturer sites are often JS-rendered or Cloudflare-protected; the
+        Serper-provided title and snippet are enough to create a usable result
+        that links directly to the brand's own product page. We then try to
+        enrich with a live fetch, but fall back gracefully if the site blocks us.
+        """
+        if _looks_like_non_product_page(result.link, result.title):
+            return None
+        if not result.title or not result.link:
+            return None
+
+        # Start with what Serper gives us — always available.
+        p = Product(
+            id=hashlib.sha256(result.link.encode()).hexdigest()[:16],
+            name=result.title,
+            brand=brand_name,
+            category=category,
+            subcategory=subcategory,
+            source_url=result.link,
+            notes=result.snippet[:300] if result.snippet else "",
+        )
+
+        # Best-effort: try to fetch the page for richer data (price, image, specs).
+        # Many brand sites work fine; JS-only or Cloudflare-protected ones won't —
+        # that's fine, the Serper data is already enough to show a useful card.
+        try:
+            page = self.client.get(result.link)
+            if page.status_code == 200:
+                extracted = extract_manufacturer_specs(page)
+                if extracted.get("name"):
+                    p.name = extracted["name"]
+                if extracted.get("image_url"):
+                    p.image_url = extracted["image_url"]
+                prices = [x for x in extracted.get("price_candidates", []) if x >= MIN_PLAUSIBLE_PRICE_EUR]
+                if prices:
+                    p.list_price_eur = min(prices)
+                if extracted.get("tables"):
+                    p.specs = extracted["tables"][0]
+        except Exception:
+            pass  # Serper snippet card is enough
+
+        return p
+
     def _find_brand_direct(
         self, query: str, brand: Dict[str, Any], category: str, subcategory: str
     ) -> List[Product]:
-        """Search the brand's own site + wholesale channels instead of retail Shopping.
+        """Search only the brand's own website — no resellers, no middlemen.
 
-        Retail Shopping (the normal path) returns Amazon, consumer stores, etc. at
-        marked-up prices. For a known brand we instead:
-          1. Search site:<brand_website> to find product pages on the brand's own site
-             (where B2B/trade pricing or "request a quote" contacts live).
-          2. Search Shopping with "wholesale" to surface authorized distributors and
-             B2B marketplaces rather than consumer retail.
-          3. Search organic for wholesale distributors by name.
+        Uses a Serper site: search to get pages indexed from the brand's own
+        domain. Cards are built from the Serper result data directly so they
+        work even when the site blocks scraping, with live-fetch enrichment
+        (price, image, specs) attempted as a best-effort on top.
         """
         brand_name: str = brand["name"]
         brand_site: str = brand["website"]
-        # product_type = whatever comes after the brand name in the query
-        product_type = query[len(brand_name):].strip()  # e.g. "glassware" from "Pasabahce glassware"
+        product_type = query[len(brand_name):].strip()
 
         diag: Dict[str, Any] = {
             "mode": "brand_direct",
@@ -169,9 +212,6 @@ class LiveSearchAgent(BaseAgent):
         }
         self.last_diagnostics = diag
 
-        products: Dict[str, Product] = {}
-
-        # --- 1. Brand's own site via site: organic search ---
         site_query = f"site:{brand_site} {product_type}".strip()
         try:
             site_results = search_organic(site_query, num=10)
@@ -179,59 +219,20 @@ class LiveSearchAgent(BaseAgent):
         except SerperConfigError:
             raise
         except Exception as e:
-            site_results = []
             diag["errors"].append(f"brand site search: {e}")
+            return []
 
+        products: Dict[str, Product] = {}
         with ThreadPoolExecutor(max_workers=6) as pool:
             futures = [
-                pool.submit(self._product_from_organic, r, category, subcategory)
+                pool.submit(
+                    self._product_from_brand_site_result, r, brand_name, category, subcategory
+                )
                 for r in site_results
             ]
             for fut in as_completed(futures):
                 p = fut.result()
                 if p is not None and p.source_url not in products:
-                    # Override brand to the known name so scoring is correct
-                    p.brand = brand_name
-                    products[p.source_url] = p
-
-        # --- 2. Shopping: wholesale/B2B qualifier to avoid consumer retail ---
-        wholesale_q = f'"{brand_name}" {product_type} wholesale hospitality'.strip()
-        try:
-            shopping_hits = search_shopping(wholesale_q, num=10)
-            diag["wholesale_shopping_hits"] = len(shopping_hits)
-        except SerperConfigError:
-            raise
-        except Exception as e:
-            shopping_hits = []
-            diag["errors"].append(f"wholesale shopping: {e}")
-
-        for hit in shopping_hits:
-            p = self._product_from_shopping(hit, category, subcategory)
-            if p and p.source_url not in products:
-                p.brand = brand_name
-                products[p.source_url] = p
-
-        # --- 3. Organic: wholesale distributors ---
-        dist_q = f'"{brand_name}" {product_type} wholesale distributor B2B'.strip()
-        try:
-            dist_results = search_organic(dist_q, num=5)
-            diag["distributor_results"] = len(dist_results)
-        except SerperConfigError:
-            raise
-        except Exception as e:
-            dist_results = []
-            diag["errors"].append(f"distributor search: {e}")
-
-        with ThreadPoolExecutor(max_workers=4) as pool:
-            futures = [
-                pool.submit(self._product_from_organic, r, category, subcategory)
-                for r in dist_results
-                if r.link not in products
-            ]
-            for fut in as_completed(futures):
-                p = fut.result()
-                if p is not None and p.source_url not in products:
-                    p.brand = brand_name
                     products[p.source_url] = p
 
         diag["total_products"] = len(products)
